@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище MuseumDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Creators">
+    <Key>
+      <PropertyRef Name="IDCreator" />
+    </Key>
+    <Property Name="IDCreator" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Counrty" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lifetime" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exhibitions">
+    <Key>
+      <PropertyRef Name="IDExhibition" />
+    </Key>
+    <Property Name="IDExhibition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateStart" Type="datetime" Nullable="false" />
+    <Property Name="DateStop" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Place" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PersonInCharge" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exhibits">
+    <Key>
+      <PropertyRef Name="IDExhibit" />
+    </Key>
+    <Property Name="IDExhibit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDExhibition" Type="int" />
+    <Property Name="IDRoom" Type="int" />
+    <Property Name="IDType" Type="int" Nullable="false" />
+    <Property Name="IDCreator" Type="int" />
+    <Property Name="IDStyle" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOfCreation" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="IDRoom" />
+    </Key>
+    <Property Name="IDRoom" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PersonInCharge" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Styles">
+    <Key>
+      <PropertyRef Name="IDStyle" />
+    </Key>
+    <Property Name="IDStyle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AppearancePeriod" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Types">
+    <Key>
+      <PropertyRef Name="IDType" />
+    </Key>
+    <Property Name="IDType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Exhibits_Creators">
+    <End Role="Creators" Type="Self.Creators" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creators">
+        <PropertyRef Name="IDCreator" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDCreator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Exhibitions">
+    <End Role="Exhibitions" Type="Self.Exhibitions" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exhibitions">
+        <PropertyRef Name="IDExhibition" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDExhibition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Rooms">
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="IDRoom" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDRoom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Styles">
+    <End Role="Styles" Type="Self.Styles" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Styles">
+        <PropertyRef Name="IDStyle" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDStyle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Types">
+    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="IDType" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Хранилище MuseumDBModelContainer">
+    <EntitySet Name="Creators" EntityType="Self.Creators" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exhibitions" EntityType="Self.Exhibitions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exhibits" EntityType="Self.Exhibits" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Styles" EntityType="Self.Styles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Exhibits_Creators" Association="Self.FK_Exhibits_Creators">
+      <End Role="Creators" EntitySet="Creators" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Exhibitions" Association="Self.FK_Exhibits_Exhibitions">
+      <End Role="Exhibitions" EntitySet="Exhibitions" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Rooms" Association="Self.FK_Exhibits_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Styles" Association="Self.FK_Exhibits_Styles">
+      <End Role="Styles" EntitySet="Styles" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Types" Association="Self.FK_Exhibits_Types">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

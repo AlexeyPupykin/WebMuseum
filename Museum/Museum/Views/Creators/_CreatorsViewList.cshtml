@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Museum.Models.Creator>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Страна</th>
+            <th>Время жизни</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Name</td>
+                <td>@m.Counrty</td>
+                <td>@m.Lifetime</td>
+            </tr>
+        }
+    </tbody>
+</table>

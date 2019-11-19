@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MuseumDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Creator">
+    <Key>
+      <PropertyRef Name="IDCreator" />
+    </Key>
+    <Property Name="IDCreator" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Counrty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Lifetime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Exhibits" Relationship="Self.FK_Exhibits_Creators" FromRole="Creators" ToRole="Exhibits" />
+  </EntityType>
+  <EntityType Name="Exhibition">
+    <Key>
+      <PropertyRef Name="IDExhibition" />
+    </Key>
+    <Property Name="IDExhibition" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateStop" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PersonInCharge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Exhibits" Relationship="Self.FK_Exhibits_Exhibitions" FromRole="Exhibitions" ToRole="Exhibits" />
+  </EntityType>
+  <EntityType Name="Exhibit">
+    <Key>
+      <PropertyRef Name="IDExhibit" />
+    </Key>
+    <Property Name="IDExhibit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDExhibition" Type="Int32" />
+    <Property Name="IDRoom" Type="Int32" />
+    <Property Name="IDType" Type="Int32" Nullable="false" />
+    <Property Name="IDCreator" Type="Int32" />
+    <Property Name="IDStyle" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfCreation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Creator" Relationship="Self.FK_Exhibits_Creators" FromRole="Exhibits" ToRole="Creators" />
+    <NavigationProperty Name="Exhibition" Relationship="Self.FK_Exhibits_Exhibitions" FromRole="Exhibits" ToRole="Exhibitions" />
+    <NavigationProperty Name="Room" Relationship="Self.FK_Exhibits_Rooms" FromRole="Exhibits" ToRole="Rooms" />
+    <NavigationProperty Name="Style" Relationship="Self.FK_Exhibits_Styles" FromRole="Exhibits" ToRole="Styles" />
+    <NavigationProperty Name="Type" Relationship="Self.FK_Exhibits_Types" FromRole="Exhibits" ToRole="Types" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="IDRoom" />
+    </Key>
+    <Property Name="IDRoom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PersonInCharge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Exhibits" Relationship="Self.FK_Exhibits_Rooms" FromRole="Rooms" ToRole="Exhibits" />
+  </EntityType>
+  <EntityType Name="Style">
+    <Key>
+      <PropertyRef Name="IDStyle" />
+    </Key>
+    <Property Name="IDStyle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AppearancePeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Exhibits" Relationship="Self.FK_Exhibits_Styles" FromRole="Styles" ToRole="Exhibits" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="IDType" />
+    </Key>
+    <Property Name="IDType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Exhibits" Relationship="Self.FK_Exhibits_Types" FromRole="Types" ToRole="Exhibits" />
+  </EntityType>
+  <Association Name="FK_Exhibits_Creators">
+    <End Role="Creators" Type="Self.Creator" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Creators">
+        <PropertyRef Name="IDCreator" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDCreator" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Exhibitions">
+    <End Role="Exhibitions" Type="Self.Exhibition" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exhibitions">
+        <PropertyRef Name="IDExhibition" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDExhibition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Rooms">
+    <End Role="Rooms" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="IDRoom" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDRoom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Styles">
+    <End Role="Styles" Type="Self.Style" Multiplicity="0..1" />
+    <End Role="Exhibits" Type="Self.Exhibit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Styles">
+        <PropertyRef Name="IDStyle" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDStyle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibits_Types">
+    <End Role="Types" Type="Self.Type" Multiplicity="1" />
+    <End Role="Exhibits" Type="Self.Exhibit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Types">
+        <PropertyRef Name="IDType" />
+      </Principal>
+      <Dependent Role="Exhibits">
+        <PropertyRef Name="IDType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MuseumDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Creators" EntityType="Self.Creator" />
+    <EntitySet Name="Exhibitions" EntityType="Self.Exhibition" />
+    <EntitySet Name="Exhibits" EntityType="Self.Exhibit" />
+    <EntitySet Name="Rooms" EntityType="Self.Room" />
+    <EntitySet Name="Styles" EntityType="Self.Style" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Types" EntityType="Self.Type" />
+    <AssociationSet Name="FK_Exhibits_Creators" Association="Self.FK_Exhibits_Creators">
+      <End Role="Creators" EntitySet="Creators" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Exhibitions" Association="Self.FK_Exhibits_Exhibitions">
+      <End Role="Exhibitions" EntitySet="Exhibitions" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Rooms" Association="Self.FK_Exhibits_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Styles" Association="Self.FK_Exhibits_Styles">
+      <End Role="Styles" EntitySet="Styles" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibits_Types" Association="Self.FK_Exhibits_Types">
+      <End Role="Types" EntitySet="Types" />
+      <End Role="Exhibits" EntitySet="Exhibits" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MuseumDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MuseumDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

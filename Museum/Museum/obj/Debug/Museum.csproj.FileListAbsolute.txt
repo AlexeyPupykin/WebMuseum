@@ -110,8 +110,8 @@ C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\bin\ru\EntityFramework.S
 C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\bin\ru\Microsoft.AspNet.Identity.Core.resources.dll
 C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\bin\ru\Microsoft.AspNet.Identity.Owin.resources.dll
 C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\bin\ru\Microsoft.AspNet.Identity.EntityFramework.resources.dll
-C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\obj\Debug\Museum.csprojAssemblyReference.cache
 C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\obj\Debug\Museum.csproj.CoreCompileInputs.cache
 C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\obj\Debug\Museum.csproj.CopyComplete
 C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\obj\Debug\Museum.dll
 C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\obj\Debug\Museum.pdb
+C:\Users\Алексей\Desktop\Пр БД\Museum\Museum\obj\Debug\Museum.csprojAssemblyReference.cache

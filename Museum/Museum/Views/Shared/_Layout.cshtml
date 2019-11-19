@@ -25,7 +25,13 @@
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
                     <li>@Html.ActionLink("О программе", "About", "Home")</li>
                     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Создатели", "CreatorsView", "Creators")</li>
+
                 </ul>
+                <a href="@Url.Action("CreatorsView", "Creators")">
+
+                    <h5>Создатели</h5>
+                </a>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
