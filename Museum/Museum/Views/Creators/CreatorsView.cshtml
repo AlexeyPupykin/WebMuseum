@@ -4,3 +4,38 @@
 <div class="row">
     @Html.Action("OutPutCreators", "Creators")
 </div>
+
+@section Styles{
+    @Styles.Render("~/Content/plugins/datatables")
+}
+
+@section Scripts {
+    @Scripts.Render("~/plugins/datatables")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.table-creators').DataTable({
+                "paging": false,
+                "info": false,
+                "searching": true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'excel', title: 'Report' },
+                    { extend: 'pdf', title: 'Report' },
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}

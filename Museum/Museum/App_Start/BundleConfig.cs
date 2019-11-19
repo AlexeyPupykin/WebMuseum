@@ -25,6 +25,14 @@ namespace Museum
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // dataTables css styles
+            bundles.Add(new StyleBundle("~/Content/plugins/datatables").Include(
+                      "~/Content/plugins/datatables/datatables.min.css"));
+
+            bundles.Add(new ScriptBundle("~/plugins/datatables").Include(
+                      "~/Scripts/plugins/datatables/datatables.min.js",
+                      "~/Scripts/plugins/datatables/dataTables.bootstrap4.min.js"));
         }
     }
 }
