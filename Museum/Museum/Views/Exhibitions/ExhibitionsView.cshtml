@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Museum.Models.Exhibition>
+
+@{
+    ViewBag.Title = "Выставки";
+}
+
+@foreach (var m in Model)
+{
+<div class="card col-sm-4">
+    <div class="card-header">
+        <h3>
+            @m.Name<br />
+            <small class="text-muted">@m.Country</small>
+        </h3>
+    </div>
+    <div class="card-body">
+        <h3><small>Время проведения</small><br /> c @m.DateStart.ToShortDateString()<br /> по @m.DateStop.ToShortDateString()</h3><br />
+        <h3><small>Куда приходить?</small><br /> В городе @m.City в @m.Place</h3>
+    </div>
+</div>
+}
+<div class="row">
+
+</div>

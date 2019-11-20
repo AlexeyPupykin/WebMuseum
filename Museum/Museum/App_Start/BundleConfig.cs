@@ -23,8 +23,9 @@ namespace Museum
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css"
+                      //,"~/Content/style.css"
+                      ,"~/Content/Site.css"));
 
             // dataTables css styles
             bundles.Add(new StyleBundle("~/Content/plugins/datatables").Include(
