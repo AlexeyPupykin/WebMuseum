@@ -137,5 +137,14 @@ namespace Museum.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<GetCurrentRoom_Result> GetCurrentRoom(Nullable<int> p_Room)
+        {
+            var p_RoomParameter = p_Room.HasValue ?
+                new ObjectParameter("p_Room", p_Room) :
+                new ObjectParameter("p_Room", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCurrentRoom_Result>("GetCurrentRoom", p_RoomParameter);
+        }
     }
 }

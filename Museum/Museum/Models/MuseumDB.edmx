@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MuseumDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MuseumDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Creators">
           <Key>
             <PropertyRef Name="IDCreator" />
@@ -77,7 +77,9 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Exhibits_Creators">
-          <End Role="Creators" Type="Self.Creators" Multiplicity="0..1" />
+          <End Role="Creators" Type="Self.Creators" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Creators">
@@ -89,7 +91,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Exhibits_Exhibitions">
-          <End Role="Exhibitions" Type="Self.Exhibitions" Multiplicity="0..1" />
+          <End Role="Exhibitions" Type="Self.Exhibitions" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Exhibitions">
@@ -101,7 +105,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Exhibits_Rooms">
-          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rooms">
@@ -113,7 +119,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Exhibits_Styles">
-          <End Role="Styles" Type="Self.Styles" Multiplicity="0..1" />
+          <End Role="Styles" Type="Self.Styles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Styles">
@@ -125,7 +133,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Exhibits_Types">
-          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="Types" Type="Self.Types" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Types">
@@ -137,6 +147,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetCurrentRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_Room" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -196,8 +209,7 @@
             <End Role="Exhibits" EntitySet="Exhibits" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MuseumDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -400,6 +412,9 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="GetCurrentRoom" ReturnType="Collection(MuseumDBModel.GetCurrentRoom_Result)">
+            <Parameter Name="p_Room" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -411,6 +426,17 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetCurrentRoom_Result">
+          <Property Type="Int32" Name="IDExhibit" Nullable="false" />
+          <Property Type="Int32" Name="IDExhibition" Nullable="true" />
+          <Property Type="Int32" Name="IDRoom" Nullable="true" />
+          <Property Type="Int32" Name="IDType" Nullable="false" />
+          <Property Type="Int32" Name="IDCreator" Nullable="true" />
+          <Property Type="Int32" Name="IDStyle" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -520,6 +546,21 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище MuseumDBModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище MuseumDBModel.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="GetCurrentRoom" FunctionName="Хранилище MuseumDBModel.GetCurrentRoom">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MuseumDBModel.GetCurrentRoom_Result">
+                <ScalarProperty Name="IDExhibit" ColumnName="IDExhibit" />
+                <ScalarProperty Name="IDExhibition" ColumnName="IDExhibition" />
+                <ScalarProperty Name="IDRoom" ColumnName="IDRoom" />
+                <ScalarProperty Name="IDType" ColumnName="IDType" />
+                <ScalarProperty Name="IDCreator" ColumnName="IDCreator" />
+                <ScalarProperty Name="IDStyle" ColumnName="IDStyle" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
