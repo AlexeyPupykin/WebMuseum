@@ -188,6 +188,9 @@
     <Compile Include="Models\Exhibition.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetCurrentExhibition_Result.cs">
+      <DependentUpon>MuseumDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetCurrentRoom_Result.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
@@ -310,6 +313,7 @@
     <Content Include="Views\Exhibitions\ExhibitionsView.cshtml" />
     <Content Include="Views\Rooms\RoomsView.cshtml" />
     <Content Include="Views\Rooms\CurrentRoomView.cshtml" />
+    <Content Include="Views\Exhibitions\CurrentExhibitionView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
