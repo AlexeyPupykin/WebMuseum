@@ -103,5 +103,20 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище MuseumDBModel.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище MuseumDBModel.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="GetCurrentRoom" FunctionName="Хранилище MuseumDBModel.GetCurrentRoom">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MuseumDBModel.GetCurrentRoom_Result">
+          <ScalarProperty Name="IDExhibit" ColumnName="IDExhibit" />
+          <ScalarProperty Name="IDExhibition" ColumnName="IDExhibition" />
+          <ScalarProperty Name="IDRoom" ColumnName="IDRoom" />
+          <ScalarProperty Name="IDType" ColumnName="IDType" />
+          <ScalarProperty Name="IDCreator" ColumnName="IDCreator" />
+          <ScalarProperty Name="IDStyle" ColumnName="IDStyle" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

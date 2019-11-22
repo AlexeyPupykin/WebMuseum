@@ -188,6 +188,9 @@
     <Compile Include="Models\Exhibition.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetCurrentRoom_Result.cs">
+      <DependentUpon>MuseumDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MuseumDB.Context.cs">

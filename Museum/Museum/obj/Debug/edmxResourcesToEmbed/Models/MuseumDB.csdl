@@ -199,6 +199,9 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="GetCurrentRoom" ReturnType="Collection(MuseumDBModel.GetCurrentRoom_Result)">
+      <Parameter Name="p_Room" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -210,5 +213,16 @@
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="GetCurrentRoom_Result">
+    <Property Type="Int32" Name="IDExhibit" Nullable="false" />
+    <Property Type="Int32" Name="IDExhibition" Nullable="true" />
+    <Property Type="Int32" Name="IDRoom" Nullable="true" />
+    <Property Type="Int32" Name="IDType" Nullable="false" />
+    <Property Type="Int32" Name="IDCreator" Nullable="true" />
+    <Property Type="Int32" Name="IDStyle" Nullable="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
   </ComplexType>
 </Schema>

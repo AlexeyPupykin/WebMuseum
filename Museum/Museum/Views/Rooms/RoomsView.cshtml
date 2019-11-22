@@ -12,7 +12,7 @@
         <p>
             @m.Description
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Что внутри? &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("CurrentRoomView", "Rooms", new {Room = m.IDRoom, Name = m.Name})">Что внутри? &raquo;</a></p>
     </div>
 }
 <div class="row">

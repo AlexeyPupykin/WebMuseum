@@ -72,7 +72,9 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <Association Name="FK_Exhibits_Creators">
-    <End Role="Creators" Type="Self.Creators" Multiplicity="0..1" />
+    <End Role="Creators" Type="Self.Creators" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Creators">
@@ -84,7 +86,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Exhibits_Exhibitions">
-    <End Role="Exhibitions" Type="Self.Exhibitions" Multiplicity="0..1" />
+    <End Role="Exhibitions" Type="Self.Exhibitions" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Exhibitions">
@@ -96,7 +100,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Exhibits_Rooms">
-    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Rooms">
@@ -108,7 +114,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Exhibits_Styles">
-    <End Role="Styles" Type="Self.Styles" Multiplicity="0..1" />
+    <End Role="Styles" Type="Self.Styles" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Styles">
@@ -120,7 +128,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Exhibits_Types">
-    <End Role="Types" Type="Self.Types" Multiplicity="1" />
+    <End Role="Types" Type="Self.Types" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Exhibits" Type="Self.Exhibits" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Types">
@@ -132,6 +142,9 @@
     </ReferentialConstraint>
   </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="GetCurrentRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="p_Room" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
