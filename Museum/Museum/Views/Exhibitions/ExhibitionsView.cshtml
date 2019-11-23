@@ -3,27 +3,167 @@
 @{
     ViewBag.Title = "Выставки";
 }
+<div class="container text-center">
+    @Html.Action("OutPutExhibitions", "Exhibitions")
 
-@foreach (var m in Model)
-{
-<div class="exhibition col-sm-4">
-    <div class="ibox">
-        <div class="ibox-title">
-            <h3>
-                @m.Name<br />
-                <small class="text-muted">@m.Country</small>
-            </h3>
-        </div>
-        <div class="ibox-content">
-            <h3><small>Время проведения</small><br /> c @m.DateStart.ToShortDateString()<br /> по @m.DateStop.ToShortDateString()</h3><br />
-            <h3><small>Куда приходить?</small><br /> В городе @m.City в @m.Place</h3>
-        </div>
-        <div class="ibox-content-more">
-            <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new {Exhibition = m.IDExhibition, Name = m.Name})">Что будет нашего? &raquo;</a></p>
-        </div>
+    @*@foreach (var m in Model)
+        {
+            <div class="exhibition col-sm-4">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h3>
+                            @m.Name<br />
+                            <small class="text-muted">@m.Country</small>
+                        </h3>
+                    </div>
+                    <div class="ibox-content">
+                        <h3><small>Время проведения</small><br /> c @m.DateStart.ToShortDateString()<br /> по @m.DateStop.ToShortDateString()</h3><br />
+                        <h3><small>Куда приходить?</small><br /> В городе @m.City в @m.Place</h3>
+                    </div>
+                    <div class="ibox-content-more">
+                        <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new {Exhibition = m.IDExhibition, Name = m.Name})">Что будет нашего? &raquo;</a></p>
+                    </div>
+                </div>
+            </div>
+        }*@
+</div>
+<br />
+<div class="container m-4">
+    <a class="btn btn-primary m-3" data-toggle="collapse" href="#addExhibition" role="button" aria-expanded="false" aria-controls="addExhibition">
+        Добавить выставку
+    </a>
+    <div class="collapse m-2" id="addExhibition">
+        <form>
+            <div class="row m-1">
+                <div class="col-sm-4">
+                    <input required type="text" class="form-control" id="input-name" placeholder="Название">
+                </div>
+                <div class="col-sm-8">
+                    <div id="input-time" class="form-control">
+                        <i class="fa fa-calendar"></i>
+                        <span></span> <b class="caret"></b>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-sm-4">
+                    <input required type="text" class="form-control" id="input-country" placeholder="Страна">
+                </div>
+                <div class="col-sm-4">
+                    <input required type="text" class="form-control" id="input-city" placeholder="Город">
+                </div>
+                <div class="col-sm-4">
+                    <input required type="text" class="form-control" id="input-place" placeholder="Место">
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-sm-6">
+                    <input required type="text" class="form-control" id="input-person" placeholder="Ответственный">
+                </div>
+                <div class="col-sm-6">
+                    <button id="btn-add" type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-}
-<div class="row">
 
-</div>
+<input hidden id="datestart" value="" />
+<input hidden id="datestop" value="" />
+
+@section Styles{
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+}
+
+@section Scripts{
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/dateRange")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "#btn-add", function () {
+                var name = $('#input-name').val();
+                var startDate = $('#datestart').val();
+                var stopDate = $('#datestop').val();
+                var country = $('#input-country').val();
+                var city = $('#input-city').val();
+                var place = $('#input-place').val();
+                var person = $('#input-person').val();
+
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    data: {
+                        name: name,
+                        begTime: startDate,
+                        endTime: stopDate,
+                        country: country,
+                        city: city,
+                        place: place,
+                        person: person
+                    },
+                    success: function () {
+                        $('.alert-success').fadeIn('slow');
+                        $('.alert-success').delay(3000).fadeOut('slow');
+                    },
+                    error: function () {
+                        alert('Error occured');
+                    },
+                    url: "@Url.Action("AddExhibitionView", "Exhibitions")"
+                });
+            });
+        });
+
+        $('#input-time').daterangepicker({
+            "timePicker": true,
+            "timePicker24Hour": true,
+            "timePickerSeconds": false,
+            "locale": {
+                "format": "DD.MM.YYYY",
+                "separator": " ",
+                "applyLabel": "Выбрать",
+                "cancelLabel": "Отмена",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "Custom",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "Вс",
+                    "Пн",
+                    "Вт",
+                    "Ср",
+                    "Чт",
+                    "Пт",
+                    "Сб"
+                ],
+                "monthNames": [
+                    "Январь",
+                    "Февраль",
+                    "Март",
+                    "Апрель",
+                    "Май",
+                    "Июнь",
+                    "Июль",
+                    "Август",
+                    "Сентябрь",
+                    "Октябрь",
+                    "Ноябрь",
+                    "Декабрь"
+                ],
+                "firstDay": 1
+            },
+            "showCustomRangeLabel": false,
+            "alwaysShowCalendars": true,
+            "startDate": moment().subtract(1, 'days').startOf('day'),
+            "endDate": moment().subtract(1, 'days').endOf('day'),
+            "opens": "right",
+            "drops": "down"
+        }, function (start, end, label) {
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+            $('#input-time span').html(start.format('с DD.MM.YYYY HH:mm:ss') + ' ' + end.format('по DD.MM.YYYY HH:mm:ss'));
+            $('#datestart').val(start.format('DD.MM.YYYY HH:mm:ss'));
+            $('#datestop').val(end.format('DD.MM.YYYY HH:mm:ss'));
+        });
+    </script>
+}

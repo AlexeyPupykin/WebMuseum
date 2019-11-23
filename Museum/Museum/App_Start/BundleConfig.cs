@@ -28,12 +28,31 @@ namespace Museum
                       ,"~/Content/Site.css"));
 
             // dataTables css styles
-            bundles.Add(new StyleBundle("~/Content/plugins/datatables").Include(
+            bundles.Add(new StyleBundle("~/plugins/dataTablesStyles").Include(
                       "~/Content/plugins/datatables/datatables.min.css"));
 
+            // dataTables
             bundles.Add(new ScriptBundle("~/plugins/datatables").Include(
                       "~/Scripts/plugins/datatables/datatables.min.js",
                       "~/Scripts/plugins/datatables/dataTables.bootstrap4.min.js"));
+
+            // dataPicker styles
+            bundles.Add(new StyleBundle("~/plugins/dataPickerStyles").Include(
+                      "~/Content/plugins/datapicker/datepicker3.css"));
+
+            // dataPicker 
+            bundles.Add(new ScriptBundle("~/plugins/dataPicker").Include(
+                      "~/Scripts/plugins/datapicker/bootstrap-datepicker.js"));
+
+            // Date range picker Styless
+            bundles.Add(new StyleBundle("~/plugins/dateRangeStyles").Include(
+                      "~/Content/plugins/daterangepicker/daterangepicker.css"));
+
+            // Date range picker
+            bundles.Add(new ScriptBundle("~/plugins/dateRange").Include(
+                      // Date range use moment.js same as full calendar plugin 
+                      "~/Scripts/plugins/fullcalendar/moment.min.js",
+                      "~/Scripts/plugins/daterangepicker/daterangepicker.js"));
         }
     }
 }
