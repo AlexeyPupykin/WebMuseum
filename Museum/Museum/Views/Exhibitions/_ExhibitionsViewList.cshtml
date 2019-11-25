@@ -16,7 +16,9 @@
             </div>
             <div class="ibox-content-more">
                 <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new {Exhibition = m.IDExhibition, Name = m.Name})">Что будет нашего? &raquo;</a></p>
-                <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new {Exhibition = m.IDExhibition, Name = m.Name})">Изменить</a></p>
+                <p><a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
+                                            id = m.IDExhibition, name = m.Name, begtime = m.DateStart, endtime = m.DateStop,
+                                            country = m.Country, city = m.City, place = m.Place, person = m.PersonInCharge})">Изменить</a></p>
             </div>
         </div>
     </div>

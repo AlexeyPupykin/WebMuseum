@@ -60,6 +60,60 @@ namespace Museum.Controllers
             return PartialView("_ExhibitionsViewList", exhibitions);
         }
 
+        public ActionResult ChangeExhibitionView(int id, string name, DateTime begtime, DateTime endtime,
+            string country, string city, string place, string person)
+        {
+            Exhibition e = new Exhibition();
+            e.IDExhibition = id;
+            e.Name = name;
+            e.DateStart = begtime;
+            e.DateStop = endtime;
+            e.Country = country;
+            e.City = city;
+            e.Place = place;
+            e.PersonInCharge = person;
+
+            return View(e);
+        }
+
+        public ActionResult ChangeExhibition(int id, string name, string begtime, string endtime,
+            string country, string city, string place, string person)
+        {
+            var prmid = new System.Data.SqlClient.SqlParameter("@IDExhibition", System.Data.SqlDbType.Int);
+            prmid.Value = id;
+
+            var prmname = new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar);
+            prmname.Value = name;
+
+            var prmbegtime = new System.Data.SqlClient.SqlParameter("@DateStart", System.Data.SqlDbType.DateTime);
+            prmbegtime.Value = begtime;
+
+            var prmendtime = new System.Data.SqlClient.SqlParameter("@DateStop", System.Data.SqlDbType.DateTime);
+            prmendtime.Value = endtime;
+
+            var prmcountry = new System.Data.SqlClient.SqlParameter("@Country", System.Data.SqlDbType.NVarChar);
+            prmcountry.Value = country;
+
+            var prmcity = new System.Data.SqlClient.SqlParameter("@City", System.Data.SqlDbType.NVarChar);
+            prmcity.Value = city;
+
+            var prmplace = new System.Data.SqlClient.SqlParameter("@Place", System.Data.SqlDbType.NVarChar);
+            prmplace.Value = place;
+
+            var prmperson = new System.Data.SqlClient.SqlParameter("@PersonInCharge", System.Data.SqlDbType.NVarChar);
+            prmperson.Value = person;
+
+            db.Database.ExecuteSqlCommand(
+                "UPDATE Exhibitions SET DateStart = @DateStart, DateStop = @DateStop, Name = @Name," +
+                "Country = @Country, City = @City, Place = @Place, PersonInCharge = @PersonInCharge " +
+                "WHERE IDExhibition = @IDExhibition", prmbegtime, prmendtime, prmname,
+                prmcountry, prmcity, prmplace, prmperson, prmid);
+
+            exhibitions = db.Exhibitions.ToList();
+
+            return View();
+        }
+
         public ActionResult OutPutExhibitions()
         {
             return PartialView("_ExhibitionsViewList", exhibitions);
