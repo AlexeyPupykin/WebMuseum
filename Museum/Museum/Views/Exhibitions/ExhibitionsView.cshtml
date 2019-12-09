@@ -34,9 +34,11 @@
         <form>
             <div class="row m-1">
                 <div class="col-sm-4">
+                    <h6>Название</h6>
                     <input required type="text" class="form-control" id="input-name" placeholder="Название">
                 </div>
                 <div class="col-sm-8">
+                    <h6>Дата проведения</h6>
                     <div id="input-time" class="form-control">
                         <i class="fa fa-calendar"></i>
                         <span></span> <b class="caret"></b>
@@ -45,21 +47,25 @@
             </div>
             <div class="row m-1">
                 <div class="col-sm-4">
+                    <h6>Страна</h6>
                     <input required type="text" class="form-control" id="input-country" placeholder="Страна">
                 </div>
                 <div class="col-sm-4">
+                    <h6>Город</h6>
                     <input required type="text" class="form-control" id="input-city" placeholder="Город">
                 </div>
                 <div class="col-sm-4">
+                    <h6>Место</h6>
                     <input required type="text" class="form-control" id="input-place" placeholder="Место">
                 </div>
             </div>
             <div class="row m-1">
                 <div class="col-sm-6">
+                    <h6>Ответственный</h6>
                     <input required type="text" class="form-control" id="input-person" placeholder="Ответственный">
                 </div>
                 <div class="col-sm-6">
-                    <button id="btn-add" type="submit" class="btn btn-primary">Добавить</button>
+                    <button id="btn-add" type="button" class="btn btn-primary">Добавить</button>
                 </div>
             </div>
         </form>
@@ -91,7 +97,7 @@
 
                 $.ajax({
                     type: "POST",
-                    cache: false,
+                    cache: true,
                     data: {
                         name: name,
                         begTime: startDate,
@@ -110,6 +116,7 @@
                     },
                     url: "@Url.Action("AddExhibitionView", "Exhibitions")"
                 });
+                window.location.reload();
             });
         });
 

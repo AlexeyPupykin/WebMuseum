@@ -1,11 +1,13 @@
 ﻿@model Museum.Models.Exhibition
 
-<form>
+<form name="change">
     <div class="row m-1">
         <div class="col-sm-4">
+            <h6>Название</h6>
             <input required type="text" class="form-control" id="input-name" value="@Model.Name" placeholder=@Model.Name>
         </div>
         <div class="col-sm-8">
+            <h6>Дата проведения</h6>
             <div id="input-time" class="form-control">
                 <i class="fa fa-calendar"></i>
                 <span></span> <b class="caret"></b>
@@ -14,26 +16,34 @@
     </div>
     <div class="row m-1">
         <div class="col-sm-4">
+            <h6>Страна</h6>
             <input required type="text" class="form-control" id="input-country" value=@Model.Country placeholder="@Model.Country">
         </div>
         <div class="col-sm-4">
+            <h6>Город</h6>
             <input required type="text" class="form-control" id="input-city" value="@Model.City" placeholder="@Model.City">
         </div>
         <div class="col-sm-4">
+            <h6>Место</h6>
             <input required type="text" class="form-control" id="input-place" value="@Model.Place" placeholder="@Model.Place">
         </div>
     </div>
     <div class="row m-1">
         <div class="col-sm-6">
+            <h6>Ответственный</h6>
             <input required type="text" class="form-control" id="input-person" value="@Model.PersonInCharge" placeholder="@Model.PersonInCharge">
         </div>
-        <div class="col-sm-6">
-            <button id="btn-chandge" type="button" onclick="loadExhibitionsView();" class="btn btn-info">Изменить</button>
+        <div class="col-sm-4">
+            <br />
+            <button id="btn-change" type="submit" class="btn btn-info">Изменить</button>
+        </div>
+        <div class="col-sm-2">
+            <br />
+            <button id="btn-delete" type="button" class="btn btn-danger">Удалить</button>
         </div>
     </div>
 </form>
-
-<input  id="datestart" value="" />
+<input id="datestart" value="" />
 <input id="datestop" value="" />
 
 @section Styles{
@@ -46,11 +56,10 @@
     @Scripts.Render("~/plugins/dateRange")
 
     <script type="text/javascript">
-        function loadExhibitionsView() {
-            window.location.assign("ExhibitionsView");
-        }
         $(document).ready(function () {
-            $(document).on("click", "#btn-chandge", function () {
+            @*$('change').submit(function (event) {
+                event.preventDefault();
+
                 var name = $('#input-name').val();
                 var startDate = $('#datestart').val();
                 var stopDate = $('#datestop').val();
@@ -77,11 +86,73 @@
                         $('.alert-success').delay(3000).fadeOut('slow');
                     },
                     error: function () {
-                        alert('Error occured');
+                        console.log(data);
+                        alert('sho to slomalosi');
+                        //alert(begTime);
+                        //alert(name);
+                        //alert(endTime);
                     },
                     url: "@Url.Action("ChangeExhibition", "Exhibitions")"
                 });
+            });*@
+
+            $(document).on("click", "#btn-change", function (e) {
+
+                var name = $('#input-name').val();
+                var startDate = $('#datestart').val();
+                var stopDate = $('#datestop').val();
+                var country = $('#input-country').val();
+                var city = $('#input-city').val();
+                var place = $('#input-place').val();
+                var person = $('#input-person').val();
+
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        id: @Model.IDExhibition,
+                        name: name,
+                        begTime: startDate,
+                        endTime: stopDate,
+                        country: country,
+                        city: city,
+                        place: place,
+                        person: person
+                    },
+                    success: function () {
+                        $alert('pzdc');
+                        $('.alert-success').fadeIn('slow');
+                        $('.alert-success').delay(3000).fadeOut('slow');
+                    },
+                    error: function () {
+                        alert('sho to slomalosi');
+                    },
+                    url: "@Url.Action("ChangeExhibition", "Exhibitions")"
+                });
+                //window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
             });
+
+            $(document).on("click", "#btn-delete", function () {
+
+                $.ajax({
+                    type: "POST",
+                    cache: false,
+                    data: {
+                        id: @Model.IDExhibition
+                    },
+                    success: function () {
+                        $('.alert-success').fadeIn('slow');
+                        $('.alert-success').delay(3000).fadeOut('slow');
+                    },
+                    error: function () {
+                        alert('Error occured');
+                    },
+                    url: "@Url.Action("DeleteExhibition", "Exhibitions")"
+                });
+                window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
+            });
+
             $('#input-time span').html('@Model.DateStart.ToShortDateString()' + ' ' + '@Model.DateStop.ToShortDateString()');
 
         $('#input-time').daterangepicker({
@@ -134,8 +205,6 @@
             $('#datestart').val(start.format('DD.MM.YYYY HH:mm:ss'));
             $('#datestop').val(end.format('DD.MM.YYYY HH:mm:ss'));
                 });
-            $('#datestart').val(start.format('DD.MM.YYYY HH:mm:ss'));
-            $('#datestop').val(end.format('DD.MM.YYYY HH:mm:ss'));
         });
     </script>
 }

@@ -60,23 +60,27 @@ namespace Museum.Controllers
             return PartialView("_ExhibitionsViewList", exhibitions);
         }
 
-        public ActionResult ChangeExhibitionView(int id, string name, DateTime begtime, DateTime endtime,
+        public ActionResult ChangeExhibitionView(int id, string name, string begtime, string endtime,
             string country, string city, string place, string person)
         {
             Exhibition e = new Exhibition();
+
+            DateTime bt = DateTime.ParseExact(begtime, "MM/dd/yyyy HH:mm:ss", null);
+            DateTime et = DateTime.ParseExact(endtime, "MM/dd/yyyy HH:mm:ss", null);
+
             e.IDExhibition = id;
             e.Name = name;
-            e.DateStart = begtime;
-            e.DateStop = endtime;
+            e.DateStart = bt;
+            e.DateStop = et;
             e.Country = country;
             e.City = city;
             e.Place = place;
             e.PersonInCharge = person;
 
-            return View(e);
+            return View("ChangeExhibitionView", e);
         }
 
-        public ActionResult ChangeExhibition(int id, string name, string begtime, string endtime,
+        public RedirectToRouteResult ChangeExhibition(int id, string name, string begtime, string endtime,
             string country, string city, string place, string person)
         {
             var prmid = new System.Data.SqlClient.SqlParameter("@IDExhibition", System.Data.SqlDbType.Int);
@@ -109,9 +113,23 @@ namespace Museum.Controllers
                 "WHERE IDExhibition = @IDExhibition", prmbegtime, prmendtime, prmname,
                 prmcountry, prmcity, prmplace, prmperson, prmid);
 
-            exhibitions = db.Exhibitions.ToList();
+            return RedirectToRoute(new
+            {
+                controller = "Exhibitions",
+                action = "ExhibitionsView"
+            });
 
-            return View();
+            //return RedirectPermanent("ExhibitionsView");
+        }
+
+        public ActionResult DeleteExhibition (int id)
+        {
+            var prmid = new System.Data.SqlClient.SqlParameter("@IDExhibition", System.Data.SqlDbType.Int);
+            prmid.Value = id;
+
+            db.Database.ExecuteSqlCommand("DELETE FROM Exhibitions WHERE IDExhibition = @IDExhibition", prmid);
+
+            return View("ExhibitionsView");
         }
 
         public ActionResult OutPutExhibitions()
