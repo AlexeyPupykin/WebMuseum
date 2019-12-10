@@ -1,43 +1,156 @@
 ﻿@model IEnumerable<Museum.Models.GetExhibits_Result>
 
+@{
+    ViewBag.Title = "Экспонаты";
+}
+<br />
+<div class="container m-4">
+    <a class="btn btn-primary m-3" data-toggle="collapse" href="#addExhibit" role="button" aria-expanded="false" aria-controls="addExhibition">
+        Добавить выставку
+    </a>
+    <div class="collapse m-2" id="addExhibit">
+        <form>
+            <div class="row m-1">
+                <div class="col-sm-4">
+                    <h6>Название</h6>
+                    <input required type="text" class="form-control" id="input-name" placeholder="Пример: Крик">
+                </div>
+                <div class="col-sm-4">
+                    <h6>Дата создания</h6>
+                    <input required type="text" class="form-control" id="input-date" placeholder="Пример: 1922 год">
+                </div>
+                <div class="col-sm-4">
+                    <h6>Описание</h6>
+                    <textarea required class="form-control" rows="3" id="input-description" placeholder="Напишите описание"></textarea>
+                </div>
+            </div>
+            <hr />
+            <div class="row m-1">
+                <div class="col-sm-3">
+                    <h6>Зал</h6>
+                    <select required id="input-room" class="form-control">
+                        <option value="" selected=""></option>
+                        @foreach (var item in ViewBag.Rooms)
+                        {
+                            <option value="@item.IDRoom">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <h6>Тип</h6>
+                    <select required id="input-type" class="form-control">
+                        <option value="" selected=""></option>
+                        @foreach (var item in ViewBag.Types)
+                        {
+                            <option value="@item.IDType">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <h6>Создатель</h6>
+                    <select required id="input-creator" class="form-control">
+                        <option value="" selected=""></option>
+                        @foreach (var item in ViewBag.Creators)
+                        {
+                            <option value="@item.IDCreator">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <h6>Стиль</h6>
+                    <select required id="input-style" class="form-control">
+                        <option value="" selected=""></option>
+                        @foreach (var item in ViewBag.Styles)
+                        {
+                            <option value="@item.IDStyle">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row m-1 center-block">
+                <button id="btn-add" type="button" class="btn btn-primary">Добавить</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container">
     @foreach (var m in Model)
     {
-    <div class="ksponat col-sm-6">
-        <div class="ibox">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h4>Название</h4>
-                    <h3><strong>@m.Name</strong></h3>
+        <div class="ksponat col-sm-6">
+            <div class="ibox">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Название</h4>
+                        <h3><strong>@m.Name</strong></h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Создатель</h4>
+                        <h3>@m.Creator</h3>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <h4>Создатель</h4>
-                    <h3>@m.Creator</h3>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>Дата создания</h5>
+                        <h4>@m.DateOfCreation</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <a data-toggle="collapse" href="#@m.Name" role="button" aria-expanded="false" aria-controls="addExhibition">
+                            <strong>Описание</strong>
+                        </a>
+                        <div class="collapse m-2" id="@m.Name">@m.Description</div>
+                    </div>
                 </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>Дата создания</h5>
-                    <h4>@m.DateOfCreation</h4>
-                </div>
-                <div class="col-sm-6">
-                    <a data-toggle="collapse" href="#@m.Name" role="button" aria-expanded="false" aria-controls="addExhibition">
-                        <strong>Описание</strong>
-                    </a>
-                    <div class="collapse m-2" id="@m.Name">@m.Description</div>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>Стиль</h5>
-                    <h4>@m.Style</h4>
-                </div>
-                <div class="col-sm-6">
-                    <h5>Тип</h5>
-                    <h4>@m.Type</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>Стиль</h5>
+                        <h4>@m.Style</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5>Тип</h5>
+                        <h4>@m.Type</h4>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     }
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "#btn-add", function () {
+                var name = $('#input-name').val();
+                var date = $('#input-date').val();
+                var description = $('#input-description').val();
+                var style = $('#input-style').val();
+                var creator = $('#input-creator').val();
+                var room  = $('#input-room').val();
+                var type = $('#input-type').val();
+
+                $.ajax({
+                    type: "POST",
+                    cache: true,
+                    data: {
+                        name: name,
+                        description: description,
+                        date: date,
+                        style: style,
+                        creator: creator,
+                        type : type,
+                        room : room
+                    },
+                    success: function () {
+                        window.location.assign("http://localhost:55378/Exhibits/ExhibitsView");
+                    },
+                    error: function () {
+                        alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
+                    },
+                    url: "@Url.Action("AddExhibitView", "Exhibits")"
+                });
+            });
+        });
+    </script>
+}

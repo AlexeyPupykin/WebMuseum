@@ -55,32 +55,37 @@ namespace Museum.Controllers
                 "@City, @Place, @PersonInCharge)", prmbegtime, prmendtime, prmname, 
                 prmcountry, prmcity, prmplace, prmperson );
 
-            exhibitions = db.Exhibitions.ToList();
-
-            return PartialView("_ExhibitionsViewList", exhibitions);
+            return View("ExhibitionsView");
         }
 
-        public ActionResult ChangeExhibitionView(int id, string name, string begtime, string endtime,
-            string country, string city, string place, string person)
+        //public ActionResult ChangeExhibitionView(int id, string name, string begtime, string endtime,
+        //    string country, string city, string place, string person)
+        //{
+        //    Exhibition e = new Exhibition();
+
+        //    DateTime bt = DateTime.ParseExact(begtime, "MM/dd/yyyy HH:mm:ss", null);
+        //    DateTime et = DateTime.ParseExact(endtime, "MM/dd/yyyy HH:mm:ss", null);
+
+        //    e.IDExhibition = id;
+        //    e.Name = name;
+        //    e.DateStart = bt;
+        //    e.DateStop = et;
+        //    e.Country = country;
+        //    e.City = city;
+        //    e.Place = place;
+        //    e.PersonInCharge = person;
+
+        //    return View("ChangeExhibitionView", e);
+        //}
+
+        public ActionResult ChangeExhibitionView(int id)
         {
-            Exhibition e = new Exhibition();
-
-            DateTime bt = DateTime.ParseExact(begtime, "MM/dd/yyyy HH:mm:ss", null);
-            DateTime et = DateTime.ParseExact(endtime, "MM/dd/yyyy HH:mm:ss", null);
-
-            e.IDExhibition = id;
-            e.Name = name;
-            e.DateStart = bt;
-            e.DateStop = et;
-            e.Country = country;
-            e.City = city;
-            e.Place = place;
-            e.PersonInCharge = person;
+            var e = exhibitions.Find(x => x.IDExhibition == id);
 
             return View("ChangeExhibitionView", e);
         }
 
-        public RedirectToRouteResult ChangeExhibition(int id, string name, string begtime, string endtime,
+        public ActionResult ChangeExhibition(int id, string name, string begtime, string endtime,
             string country, string city, string place, string person)
         {
             var prmid = new System.Data.SqlClient.SqlParameter("@IDExhibition", System.Data.SqlDbType.Int);
@@ -124,15 +129,15 @@ namespace Museum.Controllers
                 "PersonInCharge = @PersonInCharge WHERE IDExhibition = @IDExhibition"
                 , prmname, prmcountry, prmcity, prmplace, prmperson, prmid);
             }
-            
 
-            return RedirectToRoute(new
-            {
-                controller = "Exhibitions",
-                action = "ExhibitionsView"
-            });
-
+            //return RedirectToRoute(new
+            //{
+            //    controller = "Exhibitions",
+            //    action = "ExhibitionsView"
+            //});
             //return RedirectPermanent("ExhibitionsView");
+            //return View("ExhibitionsView");
+            return View("ExhibitionsView");
         }
 
         public ActionResult DeleteExhibition (int id)

@@ -1,5 +1,9 @@
 ﻿@model Museum.Models.Exhibition
 
+@{
+    ViewBag.Title = "Изменение данных о выставке";
+}
+
 <form name="change">
     <div class="row m-1">
         <div class="col-sm-4">
@@ -35,7 +39,7 @@
         </div>
         <div class="col-sm-4">
             <br />
-            <button id="btn-change" type="submit" class="btn btn-info">Изменить</button>
+            <button id="btn-change" type="button" class="btn btn-info">Изменить</button>
         </div>
         <div class="col-sm-2">
             <br />
@@ -43,8 +47,8 @@
         </div>
     </div>
 </form>
-<input id="datestart" value="" />
-<input id="datestop" value="" />
+<input hidden id="datestart" value="" />
+<input hidden id="datestop" value="" />
 
 @section Styles{
     @Styles.Render("~/plugins/dateRangeStyles")
@@ -106,8 +110,6 @@
                 var place = $('#input-place').val();
                 var person = $('#input-person').val();
 
-                e.preventDefault();
-
                 $.ajax({
                     type: "POST",
                     data: {
@@ -121,16 +123,13 @@
                         person: person
                     },
                     success: function () {
-                        console.log('nikitastupid');
-                        $('.alert-success').fadeIn('slow');
-                        $('.alert-success').delay(3000).fadeOut('slow');
+                        window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
                     },
                     error: function () {
-                        alert('sho to slomalosi');
+                        alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
                     },
                     url: "@Url.Action("ChangeExhibition", "Exhibitions")"
                 });
-                //window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
             });
 
             $(document).on("click", "#btn-delete", function () {
@@ -142,15 +141,13 @@
                         id: @Model.IDExhibition
                     },
                     success: function () {
-                        $('.alert-success').fadeIn('slow');
-                        $('.alert-success').delay(3000).fadeOut('slow');
+                        window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
                     },
                     error: function () {
-                        alert('Error occured');
+                        alert('Возникла ошибка!');
                     },
                     url: "@Url.Action("DeleteExhibition", "Exhibitions")"
                 });
-                window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
             });
 
             $('#input-time span').html('@Model.DateStart.ToShortDateString()' + ' ' + '@Model.DateStop.ToShortDateString()');

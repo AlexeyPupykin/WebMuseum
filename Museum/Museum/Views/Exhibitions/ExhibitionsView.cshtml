@@ -1,31 +1,7 @@
 ﻿@{
     ViewBag.Title = "Выставки";
 }
-<div class="container text-center">
-    @Html.Action("OutPutExhibitions", "Exhibitions")
 
-    @*@foreach (var m in Model)
-        {
-            <div class="exhibition col-sm-4">
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h3>
-                            @m.Name<br />
-                            <small class="text-muted">@m.Country</small>
-                        </h3>
-                    </div>
-                    <div class="ibox-content">
-                        <h3><small>Время проведения</small><br /> c @m.DateStart.ToShortDateString()<br /> по @m.DateStop.ToShortDateString()</h3><br />
-                        <h3><small>Куда приходить?</small><br /> В городе @m.City в @m.Place</h3>
-                    </div>
-                    <div class="ibox-content-more">
-                        <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new {Exhibition = m.IDExhibition, Name = m.Name})">Что будет нашего? &raquo;</a></p>
-                    </div>
-                </div>
-            </div>
-        }*@
-</div>
-<br />
 <div class="container m-4">
     <a class="btn btn-primary m-3" data-toggle="collapse" href="#addExhibition" role="button" aria-expanded="false" aria-controls="addExhibition">
         Добавить выставку
@@ -71,6 +47,9 @@
         </form>
     </div>
 </div>
+<div class="container text-center">
+    @Html.Action("OutPutExhibitions", "Exhibitions")
+</div>
 
 <input hidden id="datestart" value="" />
 <input hidden id="datestop" value="" />
@@ -108,15 +87,13 @@
                         person: person
                     },
                     success: function () {
-                        $('.alert-success').fadeIn('slow');
-                        $('.alert-success').delay(3000).fadeOut('slow');
+                        window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
                     },
                     error: function () {
-                        alert('Error occured');
+                        alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
                     },
                     url: "@Url.Action("AddExhibitionView", "Exhibitions")"
                 });
-                window.location.reload();
             });
         });
 

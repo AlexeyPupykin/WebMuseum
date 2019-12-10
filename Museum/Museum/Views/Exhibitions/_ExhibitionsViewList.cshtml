@@ -13,22 +13,24 @@
                 <h3><small>Куда приходить?</small><br /> В городе @m.City в @m.Place</h3>
             </div>
             <div class="ibox-content-more">
-                <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new {Exhibition = m.IDExhibition, Name = m.Name})">Что будет нашего? &raquo;</a></p>
+                <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new { Exhibition = m.IDExhibition, Name = m.Name })">Что будет нашего? &raquo;</a></p>
                 <p>
-                    @*@Html.ActionLink("Изменить", "ChangeExhibitionView", "Exhibitions", new
-               {
-                   id = m.IDExhibition,
-                   name = m.Name,
-                   begtime = m.DateStart,
-                   endtime = m.DateStop,
-                   country = m.Country,
-                   city = m.City,
-                   place = m.Place,
-                   person = m.PersonInCharge
-               }, null)*@
                     <a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
-                        id = m.IDExhibition, name = m.Name, begtime = m.DateStart, endtime = m.DateStop,
-                        country = m.Country, city = m.City, place = m.Place, person = m.PersonInCharge})">Изменить</a>
+                                                 id = m.IDExhibition})">Изменить</a>
+                    @*@Html.ActionLink("Изменить", "ChangeExhibitionView", "Exhibitions", new
+        {
+            id = m.IDExhibition,
+            name = m.Name,
+            begtime = m.DateStart,
+            endtime = m.DateStop,
+            country = m.Country,
+            city = m.City,
+            place = m.Place,
+            person = m.PersonInCharge
+        }, null)*@
+                    @*<a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
+        id = m.IDExhibition, name = m.Name, begtime = m.DateStart, endtime = m.DateStop,
+        country = m.Country, city = m.City, place = m.Place, person = m.PersonInCharge})">Изменить</a>*@
                 </p>
             </div>
         </div>
