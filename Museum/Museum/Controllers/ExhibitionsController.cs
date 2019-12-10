@@ -107,11 +107,24 @@ namespace Museum.Controllers
             var prmperson = new System.Data.SqlClient.SqlParameter("@PersonInCharge", System.Data.SqlDbType.NVarChar);
             prmperson.Value = person;
 
-            db.Database.ExecuteSqlCommand(
-                "UPDATE Exhibitions SET DateStart = @DateStart, DateStop = @DateStop, Name = @Name," +
-                "Country = @Country, City = @City, Place = @Place, PersonInCharge = @PersonInCharge " +
-                "WHERE IDExhibition = @IDExhibition", prmbegtime, prmendtime, prmname,
-                prmcountry, prmcity, prmplace, prmperson, prmid);
+            if(prmbegtime.Value.ToString() != "")
+            {
+                db.Database.ExecuteSqlCommand(
+                "UPDATE Exhibitions SET " +
+                "DateStart = @DateStart, DateStop = @DateStop, Name = @Name," +
+                "Country = @Country, City = @City, Place = @Place, " +
+                "PersonInCharge = @PersonInCharge WHERE IDExhibition = @IDExhibition"
+                , prmbegtime, prmendtime, prmname, prmcountry, prmcity, prmplace, prmperson, prmid);
+            }
+            else
+            {
+                db.Database.ExecuteSqlCommand(
+                "UPDATE Exhibitions SET " +
+                "Name = @Name, Country = @Country, City = @City, Place = @Place, " +
+                "PersonInCharge = @PersonInCharge WHERE IDExhibition = @IDExhibition"
+                , prmname, prmcountry, prmcity, prmplace, prmperson, prmid);
+            }
+            
 
             return RedirectToRoute(new
             {

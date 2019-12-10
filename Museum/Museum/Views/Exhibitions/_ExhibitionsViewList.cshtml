@@ -9,7 +9,7 @@
                 <small class="text-muted">@m.Country</small>
             </h3>
             <div class="ibox-content">
-                <h3><small>Время проведения</small><br /> c @m.DateStart.ToShortDateString()<br /> по @m.DateStop.ToShortDateString()</h3><br /> <hr />
+                <h3><small>Время проведения</small><br /> c @m.DateStart.ToShortDateString()<br /> по @m.DateStop.ToShortDateString()</h3><hr />
                 <h3><small>Куда приходить?</small><br /> В городе @m.City в @m.Place</h3>
             </div>
             <div class="ibox-content-more">
@@ -26,10 +26,10 @@
                    place = m.Place,
                    person = m.PersonInCharge
                }, null)*@
-                                <a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
-                    id = m.IDExhibition, name = m.Name, begtime = m.DateStart, endtime = m.DateStop,
-                    country = m.Country, city = m.City, place = m.Place, person = m.PersonInCharge})">Изменить</a>
-                            </p>
+                    <a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
+                        id = m.IDExhibition, name = m.Name, begtime = m.DateStart, endtime = m.DateStop,
+                        country = m.Country, city = m.City, place = m.Place, person = m.PersonInCharge})">Изменить</a>
+                </p>
             </div>
         </div>
     </div>

@@ -31,6 +31,15 @@
     margin-top: 3%;
 }
 
+.ksponat {
+    border: 3px solid #e7eaec;
+    width: 47%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    background-color: violet;
+}
+
 .ibox-title {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;

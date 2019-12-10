@@ -205,6 +205,10 @@
     <FunctionImport Name="GetCurrentExhibition" ReturnType="Collection(MuseumDBModel.GetCurrentExhibition_Result)">
       <Parameter Name="p_Exhibition" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="GetCurRoom" ReturnType="Collection(MuseumDBModel.GetCurRoom_Result)">
+      <Parameter Name="p_Room" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetExhibits" ReturnType="Collection(MuseumDBModel.GetExhibits_Result)" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -235,5 +239,23 @@
     <Property Type="String" Name="Creator" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetCurRoom_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Creator" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetExhibits_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Description" Nullable="false" />
+    <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Creator" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Room" Nullable="true" />
+    <Property Type="Int32" Name="Exhibition" Nullable="true" />
   </ComplexType>
 </Schema>

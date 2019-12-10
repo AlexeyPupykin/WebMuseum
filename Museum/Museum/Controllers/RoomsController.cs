@@ -22,7 +22,7 @@ namespace Museum.Controllers
         {
             ViewBag.Title = Name;
 
-            List<GetCurrentRoom_Result> view = GetCurrentRoomView(Room);
+            List<GetCurRoom_Result> view = GetCurrentRoomView(Room);
 
             return View(view);
         }
@@ -32,14 +32,14 @@ namespace Museum.Controllers
             return View(rooms);
         }
 
-        private List<GetCurrentRoom_Result> GetCurrentRoomView(int Room)
+        private List<GetCurRoom_Result> GetCurrentRoomView(int Room)
         {
-            List<GetCurrentRoom_Result> resultset = null;
+            List<GetCurRoom_Result> resultset = null;
 
             var prmIdRoom = new System.Data.SqlClient.SqlParameter("@p_Room", System.Data.SqlDbType.Int);
             prmIdRoom.Value = Room;
 
-            var result = db.Database.SqlQuery<GetCurrentRoom_Result>("GetCurrentRoom @p_Room", prmIdRoom).ToList();
+            var result = db.Database.SqlQuery<GetCurRoom_Result>("GetCurRoom @p_Room", prmIdRoom).ToList();
 
             resultset = result;
 
