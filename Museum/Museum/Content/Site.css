@@ -43,6 +43,26 @@
     border-radius: 20px;
 }
 
+.creator {
+    border: 1px double #036cd5;
+    border-width: 2px;
+    width: 32%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    border-radius: 20px;
+}
+
+.creator-exhibit {
+    border: 1px double #036cd5;
+    border-width: 2px;
+    width: 100%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    border-radius: 10px;
+}
+
 .ksponat {
     border: 1px double #7d858d;
     border-width: 2px;

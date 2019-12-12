@@ -1,43 +1,37 @@
 ﻿@{
     ViewBag.Title = "Создатели";
 }
-<div class="container">
-    <div class="row">
-        @Html.Action("OutPutCreators", "Creators")
+
+<div class="container m-4">
+    <br />
+    <a class="btn btn-primary m-3" data-toggle="collapse" href="#addCreator" role="button" aria-expanded="false" aria-controls="addExhibition">
+        Добавить создателя
+    </a>
+    <div class="collapse m-2" id="addCreator">
+        <form>
+            <div class="row m-1">
+                <div class="col-sm-4">
+                    <h6>Имя</h6>
+                    <input required type="text" class="form-control" id="input-name" placeholder="Введите полное имя">
+                </div>
+                <div class="col-sm-4">
+                    <h6>Страна</h6>
+                    <input required type="text" class="form-control" id="input-country" placeholder="Введите страну рождения/Неизвестно">
+                </div>
+                <div class="col-sm-4">
+                    <h6>Года жизни</h6>
+                    <input required type="text" class="form-control" id="input-lifetime" placeholder="В любом формате/Неизвестно">
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-sm-6">
+                    <br />
+                    <button id="btn-add" type="button" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-
-@section Styles{
-    @Styles.Render("~/plugins/dataTablesStyles")
-}
-
-@section Scripts {
-    @Scripts.Render("~/plugins/datatables")
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $('.table-creators').DataTable({
-                "paging": false,
-                "info": false,
-                "searching": true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'excel', title: 'Report' },
-                    { extend: 'pdf', title: 'Report' },
-                    {
-                        extend: 'print',
-                        customize: function (win) {
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
-}
+<div class="container">
+    @Html.Action("OutPutCreators", "Creators")
+</div>

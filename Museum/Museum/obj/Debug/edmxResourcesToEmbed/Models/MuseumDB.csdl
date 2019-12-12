@@ -214,6 +214,9 @@
     <FunctionImport Name="GetCurExhibition" ReturnType="Collection(MuseumDBModel.GetCurExhibition_Result)">
       <Parameter Name="p_Exhibition" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="GetExhibitsByCreator" ReturnType="Collection(MuseumDBModel.GetExhibitsByCreator_Result)">
+      <Parameter Name="p_IDCreator" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -284,6 +287,12 @@
     <Property Type="String" Name="Description" Nullable="false" />
     <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Creator" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetExhibitsByCreator_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
   </ComplexType>

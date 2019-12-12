@@ -163,5 +163,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetExhibitsByCreator" FunctionName="Хранилище MuseumDBModel.GetExhibitsByCreator">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MuseumDBModel.GetExhibitsByCreator_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
+          <ScalarProperty Name="Style" ColumnName="Style" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

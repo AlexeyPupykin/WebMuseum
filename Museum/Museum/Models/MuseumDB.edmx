@@ -157,6 +157,9 @@
         <Function Name="GetCurRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="p_Room" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetExhibitsByCreator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_IDCreator" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetExhibitsInMuseum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -433,7 +436,10 @@
           <FunctionImport Name="GetAllExhibits" ReturnType="Collection(MuseumDBModel.GetAllExhibits_Result)" />
           <FunctionImport Name="GetExhibitsInMuseum" ReturnType="Collection(MuseumDBModel.GetExhibitsInMuseum_Result)" />
           <FunctionImport Name="GetCurExhibition" ReturnType="Collection(MuseumDBModel.GetCurExhibition_Result)">
-            <Parameter Name="p_Exhibition" Mode="In" Type="Int32" />
+          <Parameter Name="p_Exhibition" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetExhibitsByCreator" ReturnType="Collection(MuseumDBModel.GetExhibitsByCreator_Result)">
+            <Parameter Name="p_IDCreator" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -505,6 +511,12 @@
           <Property Type="String" Name="Description" Nullable="false" />
           <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Creator" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetExhibitsByCreator_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
         </ComplexType>
@@ -671,6 +683,16 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetExhibitsByCreator" FunctionName="Хранилище MuseumDBModel.GetExhibitsByCreator">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MuseumDBModel.GetExhibitsByCreator_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
                 <ScalarProperty Name="Style" ColumnName="Style" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
               </ComplexTypeMapping>

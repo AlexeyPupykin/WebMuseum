@@ -188,5 +188,14 @@ namespace Museum.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCurExhibition_Result>("GetCurExhibition", p_ExhibitionParameter);
         }
+    
+        public virtual ObjectResult<GetExhibitsByCreator_Result> GetExhibitsByCreator(Nullable<int> p_IDCreator)
+        {
+            var p_IDCreatorParameter = p_IDCreator.HasValue ?
+                new ObjectParameter("p_IDCreator", p_IDCreator) :
+                new ObjectParameter("p_IDCreator", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetExhibitsByCreator_Result>("GetExhibitsByCreator", p_IDCreatorParameter);
+        }
     }
 }
