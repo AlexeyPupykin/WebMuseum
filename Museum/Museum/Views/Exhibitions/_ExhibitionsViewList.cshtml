@@ -2,6 +2,15 @@
 
 @foreach (var m in Model)
 {
+    Museum.Models.MuseumDBEntities db = new Museum.Models.MuseumDBEntities();
+
+    var prmExhibition = new System.Data.SqlClient.SqlParameter("@p_Exhibition", System.Data.SqlDbType.Int);
+    prmExhibition.Value = m.IDExhibition;
+
+    var result = db.Database.SqlQuery<Museum.Models.GetCurExhibition_Result>("GetCurExhibition @p_Exhibition", prmExhibition).ToList();
+
+    ViewBag.AmountExhibits = result.Count;
+
     <div class="exhibition col-sm-4">
         <div class="ibox">
             <h3>
@@ -12,26 +21,19 @@
                 <h3><small>Время проведения</small><br /> c @m.DateStart.ToShortDateString()<br /> по @m.DateStop.ToShortDateString()</h3><hr />
                 <h3><small>Куда приходить?</small><br /> В городе @m.City в @m.Place</h3>
             </div>
-            <div class="ibox-content-more">
-                <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new { Exhibition = m.IDExhibition, Name = m.Name })">Что будет нашего? &raquo;</a></p>
-                <p>
-                    <a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
+            <div class="row">
+                <h3> <small style="margin-left: 20px;">Количество наших экспонатов </small>@ViewBag.AmountExhibits</h3>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new { Exhibition = m.IDExhibition, Name = m.Name })">Что будет нашего? &raquo;</a></p>
+                </div>
+                <div class="col-sm-6">
+                    <p>
+                        <a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
                                                  id = m.IDExhibition})">Изменить</a>
-                    @*@Html.ActionLink("Изменить", "ChangeExhibitionView", "Exhibitions", new
-        {
-            id = m.IDExhibition,
-            name = m.Name,
-            begtime = m.DateStart,
-            endtime = m.DateStop,
-            country = m.Country,
-            city = m.City,
-            place = m.Place,
-            person = m.PersonInCharge
-        }, null)*@
-                    @*<a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
-        id = m.IDExhibition, name = m.Name, begtime = m.DateStart, endtime = m.DateStop,
-        country = m.Country, city = m.City, place = m.Place, person = m.PersonInCharge})">Изменить</a>*@
-                </p>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

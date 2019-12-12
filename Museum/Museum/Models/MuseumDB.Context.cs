@@ -179,5 +179,14 @@ namespace Museum.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetExhibitsInMuseum_Result>("GetExhibitsInMuseum");
         }
+    
+        public virtual ObjectResult<GetCurExhibition_Result> GetCurExhibition(Nullable<int> p_Exhibition)
+        {
+            var p_ExhibitionParameter = p_Exhibition.HasValue ?
+                new ObjectParameter("p_Exhibition", p_Exhibition) :
+                new ObjectParameter("p_Exhibition", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCurExhibition_Result>("GetCurExhibition", p_ExhibitionParameter);
+        }
     }
 }

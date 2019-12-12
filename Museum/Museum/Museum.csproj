@@ -192,6 +192,9 @@
     <Compile Include="Models\GetAllExhibits_Result.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetCurExhibition_Result.cs">
+      <DependentUpon>MuseumDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetCurrentExhibition_Result.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>

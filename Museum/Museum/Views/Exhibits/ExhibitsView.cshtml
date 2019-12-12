@@ -96,10 +96,13 @@
                         <h4>@m.DateOfCreation</h4>
                     </div>
                     <div class="col-sm-6">
-                        <a data-toggle="collapse" href="#@m.Name" role="button" aria-expanded="false" aria-controls="addExhibition">
+                        @{
+                            ViewBag.Determinant = "codeCollapseExhibit" + Convert.ToString(m.IDExhibit);
+                        }
+                        <a data-toggle="collapse" href="#@ViewBag.Determinant" role="button" aria-expanded="false" aria-controls="addExhibition">
                             <strong>Описание</strong>
                         </a>
-                        <div class="collapse m-2" id="@m.Name">@m.Description</div>
+                        <div class="collapse m-2" id="@ViewBag.Determinant">@m.Description</div>
                     </div>
                 </div>
                 <hr />

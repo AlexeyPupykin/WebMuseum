@@ -1,10 +1,8 @@
-﻿@model IEnumerable<Museum.Models.GetCurrentExhibition_Result>
+﻿@model IEnumerable<Museum.Models.GetCurExhibition_Result>
 
 <div class="container">
     @foreach (var m in Model)
     {
-        ViewBag.IdExhibit = m.IDExhibit;
-
         <div class="ksponat col-sm-6">
             <div class="ibox">
                 <div class="row">
@@ -24,10 +22,17 @@
                         <h4>@m.DateOfCreation</h4>
                     </div>
                     <div class="col-sm-6">
-                        <a data-toggle="collapse" href="#@m.Name" role="button" aria-expanded="false" aria-controls="addExhibition">
+                        @{
+                            ViewBag.InputValue = "codeInputExhibit" + Convert.ToString(m.IdExhibit);
+                        }
+                        <input hidden id="@ViewBag.InputValue"  value="@m.IdExhibit"/>
+                        @{
+                            ViewBag.Determinant = "codeCollapseExhibit" + Convert.ToString(m.IdExhibit);
+                        }
+                        <a data-toggle="collapse" href="#@ViewBag.Determinant" role="button" aria-expanded="false" aria-controls="addExhibition">
                             <strong>Описание</strong>
                         </a>
-                        <div class="collapse m-2" id="@m.Name">@m.Description</div>
+                        <div class="collapse m-2" id="@ViewBag.Determinant">@m.Description</div>
                     </div>
                 </div>
                 <hr />
@@ -43,8 +48,11 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <h6>В какой зал вернуть?</h6>
-                        <select required id="input-room" class="form-control">
+                        <h5>В какой зал вернуть?</h5>
+                        @{
+                            ViewBag.SelectValue = "codeSelectExhibit" + Convert.ToString(m.IdExhibit);
+                        }
+                        <select required id="@ViewBag.SelectValue" class="form-control">
                             <option value="" selected=""></option>
                             @foreach (var item in ViewBag.Rooms)
                             {
@@ -53,6 +61,7 @@
                         </select>
                     </div>
                     <div class="col-sm-6">
+                        <br />
                         <button id="btn-return-to-museum" type="button" class="btn btn-primary">Вернуть в музей</button>
                     </div>
                 </div>
@@ -72,22 +81,24 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(document).on("click", "#btn-return-to-museum", function () {
-                var room  = $('#input-room').val();
 
+                var room = $('#@ViewBag.SelectValue').val();
+                var id = $('#@ViewBag.InputValue').val();
+                
                 $.ajax({
                     type: "POST",
                     cache: true,
                     data: {
-                        id : @Model.
-                        room : room
+                        IdExhibit: id,
+                        IdRoom: room
                     },
                     success: function () {
-                        window.location.assign("http://localhost:55378/Exhibits/ExhibitsView");
+                        window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
                     },
                     error: function () {
                         alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
                     },
-                    url: "@Url.Action("AddExhibitView", "Exhibits")"
+                    url: "@Url.Action("ReturnExhibitFromExhibition", "Exhibitions")"
                 });
             });
         });

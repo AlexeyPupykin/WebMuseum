@@ -23,7 +23,7 @@ namespace Museum.Controllers
             ViewBag.IDExhibition = Exhibition;
             ViewBag.Rooms = db.Rooms.ToList();
 
-            List<GetCurrentExhibition_Result> view = GetCurrentExhibitionView(Exhibition);
+            List<GetCurExhibition_Result> view = GetCurrentExhibitionView(Exhibition);
 
             return View(view);
         }
@@ -135,14 +135,14 @@ namespace Museum.Controllers
             return View(exhibitions);
         }
 
-        private List<GetCurrentExhibition_Result> GetCurrentExhibitionView(int Exhibition)
+        private List<GetCurExhibition_Result> GetCurrentExhibitionView(int Exhibition)
         {
-            List<GetCurrentExhibition_Result> resulset = null;
+            List<GetCurExhibition_Result> resulset = null;
 
             var prmExhibition = new System.Data.SqlClient.SqlParameter("@p_Exhibition", System.Data.SqlDbType.Int);
             prmExhibition.Value = Exhibition;
 
-            var result = db.Database.SqlQuery<GetCurrentExhibition_Result>("GetCurrentExhibition @p_Exhibition", prmExhibition).ToList();
+            var result = db.Database.SqlQuery<GetCurExhibition_Result>("GetCurExhibition @p_Exhibition", prmExhibition).ToList();
 
             resulset = result;
 
@@ -171,6 +171,23 @@ namespace Museum.Controllers
                 "IDExhibition = @IDExhibition, IDRoom = NULL " +
                 "WHERE IDExhibit = @IDExhibit"
                 , prmexhibition, prmexhibit);
+
+            return View("ExhibitionsView");
+        }
+
+        public ActionResult ReturnExhibitFromExhibition(int IdExhibit, int IdRoom)
+        {
+            var prmroom = new System.Data.SqlClient.SqlParameter("@IDRoom", System.Data.SqlDbType.Int);
+            prmroom.Value = IdRoom;
+
+            var prmexhibit = new System.Data.SqlClient.SqlParameter("@IDExhibit", System.Data.SqlDbType.Int);
+            prmexhibit.Value = IdExhibit;
+
+            db.Database.ExecuteSqlCommand(
+                "UPDATE Exhibits SET " +
+                "IDExhibition = NULL , IDRoom = @IDRoom " +
+                "WHERE IDExhibit = @IDExhibit"
+                , prmroom, prmexhibit);
 
             return View("ExhibitionsView");
         }

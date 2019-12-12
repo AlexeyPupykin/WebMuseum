@@ -61,45 +61,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            @*$('change').submit(function (event) {
-                event.preventDefault();
-
-                var name = $('#input-name').val();
-                var startDate = $('#datestart').val();
-                var stopDate = $('#datestop').val();
-                var country = $('#input-country').val();
-                var city = $('#input-city').val();
-                var place = $('#input-place').val();
-                var person = $('#input-person').val();
-
-                $.ajax({
-                    type: "POST",
-                    cache: false,
-                    data: {
-                        id: @Model.IDExhibition,
-                        name: name,
-                        begTime: startDate,
-                        endTime: stopDate,
-                        country: country,
-                        city: city,
-                        place: place,
-                        person: person
-                    },
-                    success: function () {
-                        $('.alert-success').fadeIn('slow');
-                        $('.alert-success').delay(3000).fadeOut('slow');
-                    },
-                    error: function () {
-                        console.log(data);
-                        alert('sho to slomalosi');
-                        //alert(begTime);
-                        //alert(name);
-                        //alert(endTime);
-                    },
-                    url: "@Url.Action("ChangeExhibition", "Exhibitions")"
-                });
-            });*@
-
             $(document).on("click", "#btn-change", function (e) {
 
                 var name = $('#input-name').val();
