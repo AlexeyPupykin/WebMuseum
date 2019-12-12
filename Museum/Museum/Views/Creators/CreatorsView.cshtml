@@ -35,3 +35,33 @@
 <div class="container">
     @Html.Action("OutPutCreators", "Creators")
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "#btn-add", function () {
+
+                var name = $('#input-name').val();
+                var country  = $('#input-country').val();
+                var lifetime = $('#input-lifetime').val();
+
+                $.ajax({
+                    type: "POST",
+                    cache: true,
+                    data: {
+                        name: name,
+                        country: country,
+                        lifetime: lifetime
+                    },
+                    success: function () {
+                        window.location.assign("http://localhost:55378/Creators/CreatorsView");
+                    },
+                    error: function () {
+                        alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
+                    },
+                    url: "@Url.Action("AddCreator", "Creators")"
+                });
+            });
+        });
+    </script>
+}

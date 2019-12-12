@@ -23,6 +23,25 @@ namespace Museum.Controllers
             return View();
         }
 
+        public ActionResult AddCreator(string name, string country, string lifetime)
+        {
+            var prmname = new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar);
+            prmname.Value = name;
+
+            var prmcountry = new System.Data.SqlClient.SqlParameter("@Country", System.Data.SqlDbType.NVarChar);
+            prmcountry.Value = country;
+
+            var prmlifetime = new System.Data.SqlClient.SqlParameter("@Lifetime", System.Data.SqlDbType.NVarChar);
+            prmlifetime.Value = lifetime;
+
+            db.Database.ExecuteSqlCommand(
+                "INSERT INTO Creators VALUES" +
+                "(@Name, @Country, @Lifetime)",
+                prmname, prmcountry, prmlifetime);
+
+            return View("CreatorsView");
+        }
+
         // GET: Creators
         public ActionResult OutPutCreators()
         {
