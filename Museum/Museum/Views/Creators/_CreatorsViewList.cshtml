@@ -6,48 +6,58 @@
     
     ViewBag.Determinant = "codeCollapseCreator" + Convert.ToString(m.IDCreator);    
 
-    <div class="creator col-sm-4">
-        <h2><small>Имя</small><br />@m.Name</h2>
-        <h4><small>Страна<br /></small>@m.Counrty</h4>
-        <h4><small>Время жизни<br /></small>@m.Lifetime</h4>
-        <h4>
-            <a data-toggle="collapse" href="#@ViewBag.Determinant" role="button" aria-expanded="false" aria-controls="addExhibition">
-                <strong>Его работы у нас</strong>
-            </a>
-        </h4>
-        <div class="collapse m-2" id="@ViewBag.Determinant">
-            @{
-                var prmcreator = new System.Data.SqlClient.SqlParameter("@p_IDCreator", System.Data.SqlDbType.Int);
-                prmcreator.Value = m.IDCreator;
-
-                var result = db.Database.SqlQuery<Museum.Models.GetExhibitsByCreator_Result>("GetExhibitsByCreator @p_IDCreator", prmcreator).ToList();
-
-                ViewBag.AmountExhibits = result.Count;
-
-                <h3><small>Количество экспонатов здесь  </small>@ViewBag.AmountExhibits</h3>
-
-                foreach (var item in result)
-                {
-                    <div class="creator-exhibit row">
-                        <div class="col-sm-3">
-                            <h6>Название</h6>
-                            <h6><strong>@item.Name</strong></h6>
-                        </div>
-                        <div class="col-sm-3">
-                            <h6>Дата создания</h6>
-                            <h6>@item.DateOfCreation</h6>
-                        </div>
-                        <div class="col-sm-3" style="margin-right: 3px;">
-                            <h6>Стиль</h6>
-                            <h6>@item.Style</h6>
-                        </div>
-                        <div class="col-sm-3">
-                            <h6>Тип</h6>
-                            <h6>@item.Type</h6>
-                        </div>
-                    </div>
-                }
-            }
+<div class="creator col-sm-4">
+    <h2><small>Имя</small><br />@m.Name</h2>
+    <h4><small>Страна<br /></small>@m.Counrty</h4>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4><small>Время жизни<br /></small>@m.Lifetime</h4>
+        </div>
+        <div class="col-sm-6">
+            <p>
+                <a class="btn btn-info" href="@Url.Action("ChangeCreatorView", "Creators", new {
+                                                 id = m.IDCreator})">Изменить</a>
+            </p>
         </div>
     </div>
+    <h4>
+        <a data-toggle="collapse" href="#@ViewBag.Determinant" role="button" aria-expanded="false" aria-controls="addExhibition">
+            <strong>Его работы у нас</strong>
+        </a>
+    </h4>
+    <div class="collapse m-2" id="@ViewBag.Determinant">
+        @{
+            var prmcreator = new System.Data.SqlClient.SqlParameter("@p_IDCreator", System.Data.SqlDbType.Int);
+            prmcreator.Value = m.IDCreator;
+
+            var result = db.Database.SqlQuery<Museum.Models.GetExhibitsByCreator_Result>("GetExhibitsByCreator @p_IDCreator", prmcreator).ToList();
+
+            ViewBag.AmountExhibits = result.Count;
+
+            <h3><small>Количество экспонатов здесь  </small>@ViewBag.AmountExhibits</h3>
+
+            foreach (var item in result)
+            {
+                <div class="creator-exhibit row">
+                    <div class="col-sm-3">
+                        <h6>Название</h6>
+                        <h6><strong>@item.Name</strong></h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <h6>Дата создания</h6>
+                        <h6>@item.DateOfCreation</h6>
+                    </div>
+                    <div class="col-sm-3" style="margin-right: 3px;">
+                        <h6>Стиль</h6>
+                        <h6>@item.Style</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <h6>Тип</h6>
+                        <h6>@item.Type</h6>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
 }

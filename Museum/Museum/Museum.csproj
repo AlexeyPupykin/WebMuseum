@@ -339,6 +339,7 @@
     <Content Include="Views\Exhibits\ExhibitsView.cshtml" />
     <Content Include="Views\Exhibits\ChangeExhibitView.cshtml" />
     <Content Include="Views\Exhibitions\AddExhibitInExhibitionView.cshtml" />
+    <Content Include="Views\Creators\ChangeCreatorView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
