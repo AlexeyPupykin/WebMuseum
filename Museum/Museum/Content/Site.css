@@ -24,19 +24,43 @@
 }
 
 .exhibition {
-    border: 1px solid #e7eaec;
+    border: 1px double #7d858d;
+    border-width: 2px;
     width: 32%;
     margin-left: 1%;
     margin-bottom: 2%;
     margin-top: 3%;
+    border-radius: 20px;
+}
+
+.room {
+    border: 1px double #7d858d;
+    border-width: 2px;
+    width: 32%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    border-radius: 20px;
 }
 
 .ksponat {
-    border: 3px ridge #a2a292;
+    border: 1px double #7d858d;
+    border-width: 2px;
     width: 47%;
     margin-left: 1%;
     margin-bottom: 2%;
     margin-top: 3%;
+    border-radius: 20px;
+}
+
+.ex-in-room {
+    border: 1px double #7d858d;
+    border-width: 2px;
+    width: 21%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    border-radius: 20px;
 }
 
 .text-description {

@@ -189,6 +189,9 @@
     <Compile Include="Models\Exhibition.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAllExhibits_Result.cs">
+      <DependentUpon>MuseumDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetCurrentExhibition_Result.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
@@ -196,6 +199,9 @@
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetCurRoom_Result.cs">
+      <DependentUpon>MuseumDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetExhibitsInMuseum_Result.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetExhibits_Result.cs">
@@ -325,6 +331,8 @@
     <Content Include="Views\Exhibitions\_ExhibitionsViewList.cshtml" />
     <Content Include="Views\Exhibitions\ChangeExhibitionView.cshtml" />
     <Content Include="Views\Exhibits\ExhibitsView.cshtml" />
+    <Content Include="Views\Exhibits\ChangeExhibitView.cshtml" />
+    <Content Include="Views\Exhibitions\AddExhibitInExhibitionView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

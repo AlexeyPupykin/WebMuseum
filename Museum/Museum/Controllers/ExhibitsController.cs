@@ -11,7 +11,7 @@ namespace Museum.Controllers
     {
         private MuseumDBEntities db = new MuseumDBEntities();
 
-        List<GetExhibits_Result> exhibits = null;
+        List<GetAllExhibits_Result> exhibits = null;
         List<Room> rooms = null;
         List<Models.Type> types = null;
         List<Creator> creators = null;
@@ -32,7 +32,7 @@ namespace Museum.Controllers
 
         public ActionResult ExhibitsView()
         {
-            var result = db.Database.SqlQuery<GetExhibits_Result>("GetExhibits").ToList();
+            var result = db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList();
 
             return View(result);
         }
@@ -69,7 +69,82 @@ namespace Museum.Controllers
                 , prmroom, prmtype, prmcreator, prmstyle, prmname, prmdescription, prmdate
             );
 
-            exhibits = db.Database.SqlQuery<GetExhibits_Result>("GetExhibits").ToList();
+            exhibits = db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList();
+
+            return View("ExhibitsView", exhibits);
+        }
+
+        public ActionResult ChangeExhibitView (int id)
+        {
+            var e = db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList().Find(x => x.IDExhibit == id);
+
+            ViewBag.CurStyle = db.Styles.ToList().Find(s => s.Name == 
+            db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList().Find(x => x.IDExhibit == id).Style).IDStyle;
+
+            ViewBag.CurCreator = db.Creators.ToList().Find(s => s.Name ==
+            db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList().Find(x => x.IDExhibit == id).Creator).IDCreator;
+
+            ViewBag.CurType = db.Types.ToList().Find(s => s.Name ==
+            db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList().Find(x => x.IDExhibit == id).Type).IDType;
+
+            ViewBag.CurRoom = db.Rooms.ToList().Find(s => s.IDRoom ==
+            db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList().Find(x => x.IDExhibit == id).Room).Name;
+
+            ViewBag.Rooms = rooms;
+            ViewBag.Types = types;
+            ViewBag.Creators = creators;
+            ViewBag.Styles = styles;
+
+            return View("ChangeExhibitView", e);
+        }
+
+        public ActionResult ChangeExhibit (int id, string name, string description, string date,
+            string style, string creator, string type, string room)
+        {
+            var prmid = new System.Data.SqlClient.SqlParameter("@IDExhibit", System.Data.SqlDbType.Int);
+            prmid.Value = id;
+
+            var prmname = new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar);
+            prmname.Value = name;
+
+            var prmdescription = new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.NVarChar);
+            prmdescription.Value = description;
+
+            var prmdate = new System.Data.SqlClient.SqlParameter("@DateOfCreation", System.Data.SqlDbType.NVarChar);
+            prmdate.Value = date;
+
+            var prmstyle = new System.Data.SqlClient.SqlParameter("@IDStyle", System.Data.SqlDbType.Int);
+            prmstyle.Value = Convert.ToInt32(style);
+
+            var prmcreator = new System.Data.SqlClient.SqlParameter("@IDCreator", System.Data.SqlDbType.Int);
+            prmcreator.Value = Convert.ToInt32(creator);
+
+            var prmtype = new System.Data.SqlClient.SqlParameter("@IDType", System.Data.SqlDbType.Int);
+            prmtype.Value = Convert.ToInt32(type);
+
+            var prmroom = new System.Data.SqlClient.SqlParameter("@IDRoom", System.Data.SqlDbType.Int);
+            prmroom.Value = Convert.ToInt32(room);
+
+            db.Database.ExecuteSqlCommand(
+                "UPDATE Exhibits SET " +
+                "Name = @Name, Description = @Description, DateOfCreation = @DateOfCreation," +
+                "IDStyle = @IDStyle, IDCreator = @IDCreator, IDType = @IDType, " +
+                "IDRoom = @IDRoom WHERE IDExhibit = @IDExhibit"
+                , prmname, prmdescription, prmdate, prmstyle, prmcreator, prmtype, prmroom, prmid);
+
+            exhibits = db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList();
+
+            return View("ExhibitsView", exhibits);
+        }
+
+        public ActionResult DeleteExhibit (int id)
+        {
+            var prmid = new System.Data.SqlClient.SqlParameter("@IDExhibit", System.Data.SqlDbType.Int);
+            prmid.Value = id;
+
+            db.Database.ExecuteSqlCommand("DELETE FROM Exhibits WHERE IDExhibit = @IDExhibit", prmid);
+
+            exhibits = db.Database.SqlQuery<GetAllExhibits_Result>("GetAllExhibits").ToList();
 
             return View("ExhibitsView", exhibits);
         }

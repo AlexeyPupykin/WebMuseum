@@ -127,9 +127,10 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="GetExhibits" FunctionName="Хранилище MuseumDBModel.GetExhibits">
+    <FunctionImportMapping FunctionImportName="GetAllExhibits" FunctionName="Хранилище MuseumDBModel.GetAllExhibits">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="MuseumDBModel.GetExhibits_Result">
+        <ComplexTypeMapping TypeName="MuseumDBModel.GetAllExhibits_Result">
+          <ScalarProperty Name="IDExhibit" ColumnName="IDExhibit" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
@@ -138,6 +139,14 @@
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Room" ColumnName="Room" />
           <ScalarProperty Name="Exhibition" ColumnName="Exhibition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetExhibitsInMuseum" FunctionName="Хранилище MuseumDBModel.GetExhibitsInMuseum">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MuseumDBModel.GetExhibitsInMuseum_Result">
+          <ScalarProperty Name="IDExhibit" ColumnName="IDExhibit" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

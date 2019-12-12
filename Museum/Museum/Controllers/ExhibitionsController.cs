@@ -20,6 +20,7 @@ namespace Museum.Controllers
         public ActionResult CurrentExhibitionView(int Exhibition, string Name)
         {
             ViewBag.Title = Name;
+            ViewBag.IDExhibition = Exhibition;
 
             List<GetCurrentExhibition_Result> view = GetCurrentExhibitionView(Exhibition);
 
@@ -57,26 +58,6 @@ namespace Museum.Controllers
 
             return View("ExhibitionsView");
         }
-
-        //public ActionResult ChangeExhibitionView(int id, string name, string begtime, string endtime,
-        //    string country, string city, string place, string person)
-        //{
-        //    Exhibition e = new Exhibition();
-
-        //    DateTime bt = DateTime.ParseExact(begtime, "MM/dd/yyyy HH:mm:ss", null);
-        //    DateTime et = DateTime.ParseExact(endtime, "MM/dd/yyyy HH:mm:ss", null);
-
-        //    e.IDExhibition = id;
-        //    e.Name = name;
-        //    e.DateStart = bt;
-        //    e.DateStop = et;
-        //    e.Country = country;
-        //    e.City = city;
-        //    e.Place = place;
-        //    e.PersonInCharge = person;
-
-        //    return View("ChangeExhibitionView", e);
-        //}
 
         public ActionResult ChangeExhibitionView(int id)
         {
@@ -130,13 +111,6 @@ namespace Museum.Controllers
                 , prmname, prmcountry, prmcity, prmplace, prmperson, prmid);
             }
 
-            //return RedirectToRoute(new
-            //{
-            //    controller = "Exhibitions",
-            //    action = "ExhibitionsView"
-            //});
-            //return RedirectPermanent("ExhibitionsView");
-            //return View("ExhibitionsView");
             return View("ExhibitionsView");
         }
 
@@ -172,6 +146,32 @@ namespace Museum.Controllers
             resulset = result;
 
             return resulset;
+        }
+
+        public ActionResult AddExhibitInExhibitionView(int IdExhibition)
+        {
+            var exhibits_in_museum = db.Database.SqlQuery<GetExhibitsInMuseum_Result>("GetExhibitsInMuseum").ToList();
+
+            ViewBag.IDExhibition = IdExhibition;
+
+            return View("AddExhibitInExhibitionView", exhibits_in_museum);
+        }
+
+        public ActionResult AddExhibitInExhibition(int IdExhibit, int IdExhibition)
+        {
+            var prmexhibition = new System.Data.SqlClient.SqlParameter("@IDExhibition", System.Data.SqlDbType.Int);
+            prmexhibition.Value = IdExhibition;
+
+            var prmexhibit = new System.Data.SqlClient.SqlParameter("@IDExhibit", System.Data.SqlDbType.Int);
+            prmexhibit.Value = IdExhibit;
+
+            db.Database.ExecuteSqlCommand(
+                "UPDATE Exhibits SET " +
+                "IDExhibition = @IDExhibition, IDRoom = NULL " +
+                "WHERE IDExhibit = @IDExhibit"
+                , prmexhibition, prmexhibit);
+
+            return View("ExhibitionsView");
         }
 
         // GET: Exhibitions

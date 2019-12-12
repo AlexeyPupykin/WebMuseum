@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Museum.Models.GetExhibits_Result>
+﻿@model IEnumerable<Museum.Models.GetAllExhibits_Result>
 
 @{
     ViewBag.Title = "Экспонаты";
@@ -6,7 +6,7 @@
 <br />
 <div class="container m-4">
     <a class="btn btn-primary m-3" data-toggle="collapse" href="#addExhibit" role="button" aria-expanded="false" aria-controls="addExhibition">
-        Добавить выставку
+        Добавить экспонат
     </a>
     <div class="collapse m-2" id="addExhibit">
         <form>
@@ -108,9 +108,15 @@
                         <h5>Стиль</h5>
                         <h4>@m.Style</h4>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <h5>Тип</h5>
                         <h4>@m.Type</h4>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>
+                            <a class="btn btn-info" href="@Url.Action("ChangeExhibitView", "Exhibits", 
+                                    new {id = m.IDExhibit})">Изменить</a>
+                        </p>
                     </div>
                 </div>
             </div>

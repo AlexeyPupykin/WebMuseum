@@ -169,5 +169,15 @@ namespace Museum.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetExhibits_Result>("GetExhibits");
         }
+    
+        public virtual ObjectResult<GetAllExhibits_Result> GetAllExhibits()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllExhibits_Result>("GetAllExhibits");
+        }
+    
+        public virtual ObjectResult<GetExhibitsInMuseum_Result> GetExhibitsInMuseum()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetExhibitsInMuseum_Result>("GetExhibitsInMuseum");
+        }
     }
 }

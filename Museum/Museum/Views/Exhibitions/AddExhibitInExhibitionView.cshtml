@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Museum.Models.GetExhibitsInMuseum_Result>
+
+<div class="container">    
+    <div class="row m-1 center-block">
+        <br />
+        <div class="col-sm-4">
+            <select required id="input-exhibit" class="form-control">
+                <option value="" selected=""></option>
+                @foreach (var m in Model)
+                {
+                    <option value="@m.IDExhibit">@m.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <button id="btn-add" type="button" class="btn btn-primary">Добавить</button>
+        </div>
+    </div>
+</div>
+
+<input hidden id="cur-exhibition" value="@ViewBag.IDExhibition"/>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "#btn-add", function () {
+                var exhibit = $('#input-exhibit').val();
+                var exhibition = $('#cur-exhibition').val();
+
+                $.ajax({
+                    type: "POST",
+                    cache: true,
+                    data: {
+                        idExhibit : exhibit,
+                        idExhibition : exhibition
+                    },
+                    success: function () {
+                        window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView/");
+                    },
+                    error: function () {
+                        alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
+                    },
+                    url: "@Url.Action("AddExhibitInExhibition", "Exhibitions")"
+                });
+            });
+        });
+    </script>
+}

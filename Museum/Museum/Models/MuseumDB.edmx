@@ -147,13 +147,14 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetAllExhibits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetCurrentExhibition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="p_Exhibition" Type="int" Mode="In" />
         </Function>
         <Function Name="GetCurRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="p_Room" Type="int" Mode="In" />
         </Function>
-        <Function Name="GetExhibits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetExhibitsInMuseum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -426,6 +427,8 @@
           <Parameter Name="p_Room" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetExhibits" ReturnType="Collection(MuseumDBModel.GetExhibits_Result)" />
+          <FunctionImport Name="GetAllExhibits" ReturnType="Collection(MuseumDBModel.GetAllExhibits_Result)" />
+          <FunctionImport Name="GetExhibitsInMuseum" ReturnType="Collection(MuseumDBModel.GetExhibitsInMuseum_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -474,6 +477,21 @@
           <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="Room" Nullable="true" />
           <Property Type="Int32" Name="Exhibition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllExhibits_Result">
+          <Property Type="Int32" Name="IDExhibit" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Creator" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Room" Nullable="true" />
+          <Property Type="Int32" Name="Exhibition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetExhibitsInMuseum_Result">
+          <Property Type="Int32" Name="IDExhibit" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -607,9 +625,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetExhibits" FunctionName="Хранилище MuseumDBModel.GetExhibits">
+          <FunctionImportMapping FunctionImportName="GetAllExhibits" FunctionName="Хранилище MuseumDBModel.GetAllExhibits">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="MuseumDBModel.GetExhibits_Result">
+              <ComplexTypeMapping TypeName="MuseumDBModel.GetAllExhibits_Result">
+                <ScalarProperty Name="IDExhibit" ColumnName="IDExhibit" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
@@ -618,6 +637,14 @@
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Room" ColumnName="Room" />
                 <ScalarProperty Name="Exhibition" ColumnName="Exhibition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetExhibitsInMuseum" FunctionName="Хранилище MuseumDBModel.GetExhibitsInMuseum">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MuseumDBModel.GetExhibitsInMuseum_Result">
+                <ScalarProperty Name="IDExhibit" ColumnName="IDExhibit" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
