@@ -3,48 +3,93 @@
 <div class="container">
     @foreach (var m in Model)
     {
-    <div class="ksponat col-sm-6">
-        <div class="ibox">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h4>Название</h4>
-                    <h3><strong>@m.Name</strong></h3>
+        ViewBag.IdExhibit = m.IDExhibit;
+
+        <div class="ksponat col-sm-6">
+            <div class="ibox">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Название</h4>
+                        <h3><strong>@m.Name</strong></h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Создатель</h4>
+                        <h3>@m.Creator</h3>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <h4>Создатель</h4>
-                    <h3>@m.Creator</h3>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>Дата создания</h5>
+                        <h4>@m.DateOfCreation</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <a data-toggle="collapse" href="#@m.Name" role="button" aria-expanded="false" aria-controls="addExhibition">
+                            <strong>Описание</strong>
+                        </a>
+                        <div class="collapse m-2" id="@m.Name">@m.Description</div>
+                    </div>
                 </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>Дата создания</h5>
-                    <h4>@m.DateOfCreation</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5>Стиль</h5>
+                        <h4>@m.Style</h4>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Тип</h5>
+                        <h4>@m.Type</h4>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <a data-toggle="collapse" href="#@m.Name" role="button" aria-expanded="false" aria-controls="addExhibition">
-                        <strong>Описание</strong>
-                    </a>
-                    <div class="collapse m-2" id="@m.Name">@m.Description</div>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>Стиль</h5>
-                    <h4>@m.Style</h4>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Тип</h5>
-                    <h4>@m.Type</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h6>В какой зал вернуть?</h6>
+                        <select required id="input-room" class="form-control">
+                            <option value="" selected=""></option>
+                            @foreach (var item in ViewBag.Rooms)
+                            {
+                                <option value="@item.IDRoom">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <button id="btn-return-to-museum" type="button" class="btn btn-primary">Вернуть в музей</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     }
 </div>
-<br />
-<p>
-    <a class="btn btn-info" href="@Url.Action("AddExhibitInExhibitionView", "Exhibitions",
+<div class="container">
+    <br />
+    <p>
+        <a class="btn btn-info" href="@Url.Action("AddExhibitInExhibitionView", "Exhibitions",
                                     new {IdExhibition = ViewBag.IDExhibition})">Добавить экспонаты из музея</a>
-</p>
+    </p>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", "#btn-return-to-museum", function () {
+                var room  = $('#input-room').val();
+
+                $.ajax({
+                    type: "POST",
+                    cache: true,
+                    data: {
+                        id : @Model.
+                        room : room
+                    },
+                    success: function () {
+                        window.location.assign("http://localhost:55378/Exhibits/ExhibitsView");
+                    },
+                    error: function () {
+                        alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
+                    },
+                    url: "@Url.Action("AddExhibitView", "Exhibits")"
+                });
+            });
+        });
+    </script>
+}

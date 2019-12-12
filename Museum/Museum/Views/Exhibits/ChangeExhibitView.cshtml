@@ -4,77 +4,106 @@
     ViewBag.Title = "Изменение данных об экспонате";
 }
 
-<form name="change">
-    <div class="row m-1">
-        <div class="col-sm-4">
-            <h6>Название</h6>
-            <input required type="text" class="form-control" id="input-name" value="@Model.Name" placeholder="@Model.Name">
+<div class="container">
+    <form name="change">
+        <div class="row m-1">
+            <div class="col-sm-4">
+                <h6>Название</h6>
+                <input required type="text" class="form-control" id="input-name" value="@Model.Name" placeholder="@Model.Name">
+            </div>
+            <div class="col-sm-4">
+                <h6>Дата создания</h6>
+                <input required type="text" class="form-control" id="input-date" value="@Model.DateOfCreation" placeholder="@Model.DateOfCreation">
+            </div>
+            <div class="col-sm-4">
+                <h6>Описание</h6>
+                <textarea required class="form-control" rows="3" id="input-description" placeholder="@Model.Description">@Model.Description</textarea>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <h6>Дата создания</h6>
-            <input required type="text" class="form-control" id="input-date" value="@Model.DateOfCreation" placeholder="@Model.DateOfCreation">
-        </div>
-        <div class="col-sm-4">
-            <h6>Описание</h6>
-            <textarea required class="form-control" rows="3" id="input-description" placeholder="@Model.Description">@Model.Description</textarea>
-        </div>
-    </div>
-    <hr />
-    <div class="row m-1">
-        <div class="col-sm-3">
-            <h6>Зал</h6>
-            <select required id="input-room" class="form-control">
-                <option value="@Model.Room" selected="">@ViewBag.CurRoom</option>
-                @foreach (var item in ViewBag.Rooms)
-                {
-                    <option value="@item.IDRoom">@item.Name</option>
-                }
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <h6>Тип</h6>
-            <select required id="input-type" class="form-control">
-                <option value="@ViewBag.CurType" selected="">@Model.Type</option>
-                @foreach (var item in ViewBag.Types)
-                {
-                    <option value="@item.IDType">@item.Name</option>
-                }
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <h6>Создатель</h6>
-            <select required id="input-creator" class="form-control">
-                <option value="@ViewBag.CurCreator" selected="">@Model.Creator</option>
-                @foreach (var item in ViewBag.Creators)
-                {
-                    <option value="@item.IDCreator">@item.Name</option>
-                }
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <h6>Стиль</h6>
-            <select required id="input-style" class="form-control">
-                <option value="@ViewBag.CurStyle" selected="">@Model.Style</option>
-                @foreach (var item in ViewBag.Styles)
-                {
-                    <option value="@item.IDStyle">@item.Name</option>
-                }
-            </select>
-        </div>
-    </div>
-    <br />
-    <div class="row m-1 center-block">
-        <div class="col-sm-4">
-            <br />
-            <button id="btn-change" type="button" class="btn btn-info">Изменить</button>
-        </div>
-        <div class="col-sm-2">
-            <br />
-            <button id="btn-delete" type="button" class="btn btn-danger">Удалить</button>
-        </div>
-    </div>
-</form>
+        <hr />
+        <div class="row m-1">
+            <div class="col-sm-3">
+                @{
+                    Museum.Models.MuseumDBEntities museum = new Museum.Models.MuseumDBEntities();
 
+                    if (ViewBag.Info == "InRoom")
+                    {
+                        List<Museum.Models.Room> rooms = museum.Rooms.ToList();
+
+                        ViewBag.IDPlace = Model.Room;
+                        ViewBag.Places = rooms;
+                        ViewBag.Label = "Зал";
+                    }
+                    else
+                    {
+                        List<Museum.Models.Exhibition> exhibitions = museum.Exhibitions.ToList();
+
+                        ViewBag.IDPlace = Model.Exhibition;
+                        ViewBag.Places = exhibitions;
+                        ViewBag.Label = "Выставка";
+                    }
+                }
+                <h6>@ViewBag.Label</h6>
+                <select required id="input-place" class="form-control">
+                    <option value="@ViewBag.IDPlace" selected="">@ViewBag.CurPlace</option>
+                    @foreach (var item in ViewBag.Places)
+                    {
+                        if (ViewBag.Label == "Зал")
+                        {
+                            ViewBag.IDIndex = item.IDRoom;
+                        }
+                        else
+                        {
+                            ViewBag.IDIndex = item.IDExhibition;
+                        }
+                        <option value="@ViewBag.IDIndex">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <h6>Тип</h6>
+                <select required id="input-type" class="form-control">
+                    <option value="@ViewBag.CurType" selected="">@Model.Type</option>
+                    @foreach (var item in ViewBag.Types)
+                    {
+                        <option value="@item.IDType">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <h6>Создатель</h6>
+                <select required id="input-creator" class="form-control">
+                    <option value="@ViewBag.CurCreator" selected="">@Model.Creator</option>
+                    @foreach (var item in ViewBag.Creators)
+                    {
+                        <option value="@item.IDCreator">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <h6>Стиль</h6>
+                <select required id="input-style" class="form-control">
+                    <option value="@ViewBag.CurStyle" selected="">@Model.Style</option>
+                    @foreach (var item in ViewBag.Styles)
+                    {
+                        <option value="@item.IDStyle">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="row m-1 center-block">
+            <div class="col-sm-4">
+                <br />
+                <button id="btn-change" type="button" class="btn btn-info">Изменить</button>
+            </div>
+            <div class="col-sm-2">
+                <br />
+                <button id="btn-delete" type="button" class="btn btn-danger">Удалить</button>
+            </div>
+        </div>
+    </form>
+</div>
 @section Styles{
     @Styles.Render("~/plugins/dateRangeStyles")
     @Styles.Render("~/plugins/dataPickerStyles")
@@ -93,7 +122,7 @@
                 var description = $('#input-description').val();
                 var style = $('#input-style').val();
                 var creator = $('#input-creator').val();
-                var room = $('#input-room').val();
+                var place = $('#input-place').val();
                 var type = $('#input-type').val();
 
                 $.ajax({
@@ -107,7 +136,8 @@
                         style: style,
                         creator: creator,
                         type: type,
-                        room: room
+                        place: place,
+                        info_place: "@ViewBag.Label"
                     },
                     success: function () {
                         window.location.assign("http://localhost:55378/Exhibits/ExhibitsView");

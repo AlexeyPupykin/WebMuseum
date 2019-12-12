@@ -21,6 +21,7 @@ namespace Museum.Controllers
         {
             ViewBag.Title = Name;
             ViewBag.IDExhibition = Exhibition;
+            ViewBag.Rooms = db.Rooms.ToList();
 
             List<GetCurrentExhibition_Result> view = GetCurrentExhibitionView(Exhibition);
 

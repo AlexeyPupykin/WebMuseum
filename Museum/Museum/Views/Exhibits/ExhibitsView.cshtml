@@ -108,13 +108,42 @@
                         <h5>Стиль</h5>
                         <h4>@m.Style</h4>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-6">
                         <h5>Тип</h5>
                         <h4>@m.Type</h4>
                     </div>
-                    <div class="col-sm-3">
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        @{
+                            Museum.Models.MuseumDBEntities museum = new Museum.Models.MuseumDBEntities();
+
+                            if (m.Room != null)
+                            {
+                                List<Museum.Models.Room> rooms = museum.Rooms.ToList();
+                                var cur_room = rooms.Find(r => r.IDRoom == m.Room).Name;
+                                string info = "Находится в зале:";
+                                string place = cur_room;
+                                ViewBag.info = info;
+                                ViewBag.place = place;
+                            }
+                            else
+                            {
+                                List<Museum.Models.Exhibition> exhibitions = museum.Exhibitions.ToList();
+                                var cur_exhibition = exhibitions.Find(e => e.IDExhibition == m.Exhibition).Name;
+                                string info = "Находится на выставке:";
+                                string place = cur_exhibition;
+                                ViewBag.info = info;
+                                ViewBag.place = place;
+                            }
+                        }
+                        <h5>@ViewBag.info</h5>
+                        <h3>@ViewBag.place</h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <br />
                         <p>
-                            <a class="btn btn-info" href="@Url.Action("ChangeExhibitView", "Exhibits", 
+                            <a class="btn btn-info" href="@Url.Action("ChangeExhibitView", "Exhibits",
                                     new {id = m.IDExhibit})">Изменить</a>
                         </p>
                     </div>
