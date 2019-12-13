@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Museum.Models.GetCurExhibition_Result>
 
+<div class="highlights min">
+    Наши экспонаты на выставке <strong>@ViewBag.Title</strong>
+</div>
+
 <div class="container">
     @foreach (var m in Model)
     {

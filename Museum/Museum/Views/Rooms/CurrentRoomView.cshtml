@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Museum.Models.GetCurRoom_Result>
 
+<div class="highlights min">
+    Что есть в зале <strong>@ViewBag.Title</strong>?
+</div>
+
 <div class="container">
     @foreach (var m in Model)
     {

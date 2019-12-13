@@ -73,6 +73,52 @@
     border-radius: 20px;
 }
 
+.menu-item{
+    text-align: center;
+    float:left;
+    background-color: #f6fbff;
+    color: #0e1019;
+    border: 1px double #0e1019;
+    border-width: 2px;
+    width: 47%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    border-radius: 20px;
+}
+
+    .menu-item :hover 
+    {
+        color:#12183e
+    }
+
+.highlights {
+    text-align: center;
+    margin: 20px;
+    font-size: 300%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #0d367b;
+}
+
+.min
+{
+    font-size:150%;
+}
+
+.desc {
+    text-align: left;
+    float: left;
+    background-color: #ffffff;
+    color: #0e1019;
+    border: dotted #0e1019;
+    border-width: 2px;
+    width: 85%;
+    margin-left: 1%;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    border-radius: 20px;
+}
+
 .ex-in-room {
     border: 1px double #7d858d;
     border-width: 2px;

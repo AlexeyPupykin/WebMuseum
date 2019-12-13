@@ -24,12 +24,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Создатели", "CreatorsView", "Creators")</li>
                     <li>@Html.ActionLink("Экспонаты", "ExhibitsView", "Exhibits")</li>
-                    <li>@Html.ActionLink("Выставки", "ExhibitionsView", "Exhibitions")</li>
                     <li>@Html.ActionLink("Залы", "RoomsView", "Rooms")</li>
+                    <li>@Html.ActionLink("Выставки", "ExhibitionsView", "Exhibitions")</li>
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -39,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year – Музей современного искусства</p>
         </footer>
     </div>
 

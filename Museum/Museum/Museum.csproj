@@ -271,6 +271,7 @@
       <DependentUpon>MuseumDB.edmx</DependentUpon>
       <LastGenOutput>MuseumDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Resourses\HomePage.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\MuseumDB.edmx">

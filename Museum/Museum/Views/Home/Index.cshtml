@@ -1,31 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная страница";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="highlights">
+    Музей современного искусства
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="container">
+    <div class="row">
+        <div class="menu-item">
+            <h3>@Html.ActionLink("Создатели", "CreatorsView", "Creators")</h3>
+        </div>
+        <div class="menu-item">
+            <h3>@Html.ActionLink("Экспонаты", "ExhibitsView", "Exhibits")</h3>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="menu-item">
+            <h3>@Html.ActionLink("Залы", "RoomsView", "Rooms")</h3>
+        </div>
+        <div class="menu-item">
+            <h3>@Html.ActionLink("Выставки", "ExhibitionsView", "Exhibitions")</h3>
+        </div>
     </div>
 </div>
+
+<div class="container desc">
+    <h3><u>Почему нужно прийти именно к нам?</u></h3>
+    <p>
+        <h4 style="line-height: 2.2;">
+            В нашем музее молодые (и не совсем) таланты и дарования могут проявить себя, выражая душу на холст или мрамор.
+            Наш музей работает круглосуточно и Вы можете прийти в любое удобное для Вас время суток.
+            Здание музея прекрасно не только тем, что он является кладовой искусства, но и то, что он сам является произведением искусства.
+            Команда архитекторов создала шикарный фасад и роскошные залы внутри здания.
+            Это не старый музей, где всё скрипит и вот-вот разрушится, где нельзя прикасаться к произведениям создателей.
+            У нас Вы сможете всегда потрогать каждый экспонат, чтобы узнать какой материал на ощупь.
+        </h4>
+    </p>
+</div>
+<div class="row"></div>

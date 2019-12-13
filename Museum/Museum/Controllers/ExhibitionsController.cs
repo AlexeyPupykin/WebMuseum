@@ -154,6 +154,7 @@ namespace Museum.Controllers
             var exhibits_in_museum = db.Database.SqlQuery<GetExhibitsInMuseum_Result>("GetExhibitsInMuseum").ToList();
 
             ViewBag.IDExhibition = IdExhibition;
+            ViewBag.NameExhibition = db.Exhibitions.ToList().Find(s => s.IDExhibition == IdExhibition).Name;
 
             return View("AddExhibitInExhibitionView", exhibits_in_museum);
         }
