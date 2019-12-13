@@ -37,4 +37,47 @@
         </h4>
     </p>
 </div>
-<div class="row"></div>
+<div class="row">
+    <h3><u>В каком стиле у нас есть экспонаты:</u></h3>
+    @{ 
+        foreach (var item in ViewBag.Styles)
+        {
+        <div class="row">
+            <div class="col-sm-2">
+                @{
+                    ViewBag.IDCollapse = "unicodeCollapse" + Convert.ToString(item.IDStyle);
+                 }                
+                <h2>
+                    <a class="btn btn-primary m-3" style="border-radius:15px;" data-toggle="collapse" href="#@ViewBag.IDCollapse" role="button" aria-expanded="false" aria-controls="addExhibition">
+                        @item.Name
+                    </a>
+                </h2>
+            </div>
+            <div class="col-sm-10">
+                <div class="collapse m-2" id="@ViewBag.IDCollapse">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h4>Время появления</h4>
+                            <h5>@item.AppearancePeriod</h5>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4>Страна зарождения</h4>
+                            <h5>@item.Country</h5>
+                        </div>
+                        <div class="col-sm-4">
+                            @{ 
+                                Museum.Models.MuseumDBEntities db = new Museum.Models.MuseumDBEntities();
+                                ViewBag.Amount = db.Styles.ToList().Find(x => x.IDStyle == item.IDStyle).Exhibits.Count;
+                            }
+
+                            <h4>Количество работ в этом стиле <strong>@ViewBag.Amount</strong> </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        }
+    }
+</div>

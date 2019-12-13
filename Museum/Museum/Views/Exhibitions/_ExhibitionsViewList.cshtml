@@ -26,12 +26,12 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new { Exhibition = m.IDExhibition, Name = m.Name })">Что будет нашего?</a></p>
+                    <p><a class="btn btn-default" href="@Url.Action("CurrentExhibitionView", "Exhibitions", new { Exhibition = m.IDExhibition, Name = m.Name })" style="border-radius:15px;">Что будет нашего?</a></p>
                 </div>
                 <div class="col-sm-6">
                     <p>
                         <a class="btn btn-info" href="@Url.Action("ChangeExhibitionView", "Exhibitions", new {
-                                                 id = m.IDExhibition})">Изменить</a>
+                                                 id = m.IDExhibition})" style="border-radius:15px;">Изменить</a>
                     </p>
                 </div>
             </div>

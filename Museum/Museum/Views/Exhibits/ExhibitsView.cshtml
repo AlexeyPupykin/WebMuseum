@@ -7,7 +7,7 @@
     Экспонаты
 </div>
 <div class="container m-4">
-    <a class="btn btn-primary m-3" data-toggle="collapse" href="#addExhibit" role="button" aria-expanded="false" aria-controls="addExhibition">
+    <a class="btn btn-primary m-3" style="border-radius:15px;" data-toggle="collapse" href="#addExhibit" role="button" aria-expanded="false" aria-controls="addExhibition">
         Добавить экспонат
     </a>
     <div class="collapse m-2" id="addExhibit">
@@ -71,7 +71,7 @@
             </div>
             <br />
             <div class="row m-1 center-block">
-                <button id="btn-add" type="button" class="btn btn-primary">Добавить</button>
+                <button id="btn-add" type="button" class="btn btn-primary" style="border-radius:15px;">Добавить</button>
             </div>
         </form>
     </div>
@@ -149,7 +149,7 @@
                         <br />
                         <p>
                             <a class="btn btn-info" href="@Url.Action("ChangeExhibitView", "Exhibits",
-                                    new {id = m.IDExhibit})">Изменить</a>
+                                    new {id = m.IDExhibit})" style="border-radius:15px;">Изменить</a>
                         </p>
                     </div>
                 </div>

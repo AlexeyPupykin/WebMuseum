@@ -19,13 +19,13 @@
 
     ViewBag.AmountExhibits = result.Count;
 
-    <div class="room col-sm-4">
+    <div class="room col-sm-6">
         <h2><small>Название</small><br />@m.Name</h2>
         <hr />
         <h4><small>Описание зала<br /></small>@m.Description</h4>
         <hr />
         <h3><small>Количество экспонатов здесь  </small>@ViewBag.AmountExhibits</h3>
-        <p><a class="btn btn-default" href="@Url.Action("CurrentRoomView", "Rooms", new {Room = m.IDRoom, Name = m.Name})">Что внутри?</a></p>
+        <p><a class="btn btn-default" style="border-radius:15px;" href="@Url.Action("CurrentRoomView", "Rooms", new {Room = m.IDRoom, Name = m.Name})">Что внутри?</a></p>
     </div>
 }
 <div class="row">

@@ -19,7 +19,7 @@
             </div>
             <div class="col-sm-4">
                 <h6>Года жизни</h6>
-                <textarea required class="form-control" rows="3" id="input-lifetime" placeholder="@Model.Lifetime">@Model.Lifetime</textarea>
+                <input required class="form-control" rows="3" id="input-lifetime" value="@Model.Lifetime" placeholder="@Model.Lifetime" />
             </div>
         </div>
         <hr />
@@ -27,12 +27,12 @@
         <div class="row m-1 center-block">
             <div class="col-sm-1">
                 <br />
-                <button id="btn-change" type="button" class="btn btn-info">Изменить</button>
+                <button id="btn-change" type="button" class="btn btn-info" style="border-radius:15px;">Изменить</button>
             </div>
             <div class="col-sm-10"></div>
             <div class="col-sm-1">
                 <br />
-                <button id="btn-delete" type="button" class="btn btn-danger">Удалить</button>
+                <button id="btn-delete" type="button" class="btn btn-danger" style="border-radius:15px;">Удалить</button>
             </div>
         </div>
     </form>
