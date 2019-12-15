@@ -271,6 +271,7 @@
       <DependentUpon>MuseumDB.edmx</DependentUpon>
       <LastGenOutput>MuseumDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Resourses\hp.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\MuseumDB.edmx">
@@ -342,7 +343,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resourses\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

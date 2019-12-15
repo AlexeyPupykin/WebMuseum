@@ -1,4 +1,5 @@
 ﻿body {
+    /*background: linear-gradient(-15deg, #084c85, #084c85 20%, #a0d6f8 100%);*/
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -21,6 +22,88 @@
     margin-bottom: 25px;
     margin-top: 0;
     padding: 0;
+}
+
+.menu-box {
+    /*background: linear-gradient(10deg, #ea00ff, #6d47ce 20%, #f70563 70% 70%, #6d47ce 100%);*/
+    text-align: center;
+    float: left;
+    background-color: transparent;
+    width: 47%; 
+    margin: 1%;
+    border-radius: 20px;
+    color: #0e1019;
+    border: 1px double #0e1019;
+    border-width: 2px;
+    transition: all 0.8s;
+}
+
+/*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+text-align: center;
+box-sizing: border-box;
+font-family: inherit;
+font-weight: 500;
+line-height: 1.1;
+color: inherit;
+margin-top: 20px;
+margin-bottom: 10px;
+font-size: 24px;
+
+background-image: linear-gradient(90deg,#0d367b,#e52e71);*/
+
+
+.menu-box-content {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    line-height: 1.1;
+    font-size: 24px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: all 0.8s;
+}
+
+.menu-box:hover {
+    box-shadow: inset 0 0 30px 1px #0d367b;
+    border-radius:54px;
+}
+
+.flip-box {
+    background-color: transparent;
+    perspective: 1000px;
+}
+
+.flip-box-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    text-align:center;
+    transition: transform 0.8s;
+    transform-style:preserve-3d;
+}
+
+.flip-box:hover .flip-box-inner{
+    transform: rotate3d(0,1,0,45deg);
+    font-size: 500%;
+}
+.flip-box-front, .flip-box-back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    backface-visibility:visible;
+}
+
+.flip-box-front {
+    transform:rotate3d(0,1,0,-45deg);
+    background-color: #bbb;
+    color: black;
+}
+
+.flip-box-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
 }
 
 .exhibition {
@@ -108,14 +191,10 @@
 .desc {
     text-align: left;
     float: left;
-    background-color: #ffffff;
     color: #0e1019;
     border: solid #0e1019;
     border-width: 2px;
     width: 100%;
-    margin-left: 1%;
-    margin-bottom: 2%;
-    margin-top: 3%;
     border-radius: 20px;
 }
 
