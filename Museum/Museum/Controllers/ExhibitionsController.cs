@@ -57,7 +57,9 @@ namespace Museum.Controllers
                 "@City, @Place, @PersonInCharge)", prmbegtime, prmendtime, prmname, 
                 prmcountry, prmcity, prmplace, prmperson );
 
-            return View("ExhibitionsView");
+            exhibitions = db.Exhibitions.ToList();
+
+            return PartialView("_ExhibitionsViewList", exhibitions);
         }
 
         public ActionResult ChangeExhibitionView(int id)
@@ -137,7 +139,7 @@ namespace Museum.Controllers
 
         public ActionResult SearchExhibition(string name, string country)
         {
-            List<Exhibition> result = null;
+            List<Exhibition> result = new List<Exhibition>();
 
             var prmname = new System.Data.SqlClient.SqlParameter("@p_Name", System.Data.SqlDbType.NVarChar);
             prmname.Value = name;
@@ -149,7 +151,7 @@ namespace Museum.Controllers
 
             foreach(var i in temp)
             {
-                Exhibition e = null;
+                Exhibition e = new Exhibition();
                 e.IDExhibition = i.IDExhibition;
                 e.DateStart = i.DateStart;
                 e.DateStop = i.DateStop;
@@ -162,7 +164,7 @@ namespace Museum.Controllers
                 result.Add(e);
             }
 
-            return View("ExhibitionsView", result);
+            return PartialView("_ExhibitionsViewList", result);
         }
 
         private List<GetCurExhibition_Result> GetCurrentExhibitionView(int Exhibition)

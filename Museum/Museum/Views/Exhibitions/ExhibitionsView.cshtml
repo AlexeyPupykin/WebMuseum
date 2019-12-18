@@ -23,12 +23,6 @@
                     <input required type="text" class="form-control" id="search-country" placeholder="Введите страну/часть наименования страны">
                 </div>
             </div>
-            <div class="row m-1">
-                <div class="col-sm-6">
-                    <br />
-                    <button id="btn-search" type="button" class="btn btn-primary" style="border-radius:15px;">Поиск</button>
-                </div>
-            </div>
         </form>
     </div>
 </div>
@@ -74,13 +68,13 @@
             <div class="row m-1">
                 <div class="col-sm-6">
                     <br />
-                    <button id="btn-add" type="button" class="btn btn-primary" style="border-radius:15px;">Добавить</button>
+                    <button id="btn-add" type="submit" class="btn btn-primary" style="border-radius:15px;">Добавить</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<div class="container">
+<div class="container" id="output-exhibitions">
     @Html.Action("OutPutExhibitions", "Exhibitions")
 </div>
 
@@ -121,16 +115,18 @@
                         person: person
                     },
                     success: function () {
-                        window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
+                        //window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
                     },
                     error: function () {
                         alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
                     },
                     url: "@Url.Action("AddExhibition", "Exhibitions")"
+                }).done(function (result) {
+                    $('#output-exhibitions').html(result);
                 });
             });
 
-            $(document).on("click", "#btn-search", function () {
+            $("#searchExhibition").on("input", function () {
 
                 var name = $('#search-name').val();
                 var country = $('#search-country').val();
@@ -143,12 +139,14 @@
                         country: country
                     },
                     success: function () {
-                        window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
+                        //window.location.assign("http://localhost:55378/Exhibitions/ExhibitionsView");
                     },
                     error: function () {
                         alert('Возникла ошибка!\nПроверьте, все ли данные Вы ввели!');
                     },
                     url: "@Url.Action("SearchExhibition", "Exhibitions")"
+                }).done(function (result) {
+                    $('#output-exhibitions').html(result);
                 });
             });
         });
