@@ -173,5 +173,19 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SearchExhibitions" FunctionName="Хранилище MuseumDBModel.SearchExhibitions">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MuseumDBModel.SearchExhibitions_Result">
+          <ScalarProperty Name="IDExhibition" ColumnName="IDExhibition" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="DateStop" ColumnName="DateStop" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Place" ColumnName="Place" />
+          <ScalarProperty Name="PersonInCharge" ColumnName="PersonInCharge" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

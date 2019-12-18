@@ -156,6 +156,10 @@
     <Parameter Name="p_IDCreator" Type="int" Mode="In" />
   </Function>
   <Function Name="GetExhibitsInMuseum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SearchExhibitions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="p_Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="p_Country" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />

@@ -189,6 +189,9 @@
     <Compile Include="Models\Exhibition.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FilterExhibitions_Result.cs">
+      <DependentUpon>MuseumDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetAllExhibits_Result.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
@@ -233,6 +236,9 @@
     <Compile Include="Models\Room.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchExhibitions_Result.cs">
+      <DependentUpon>MuseumDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>MuseumDB.tt</DependentUpon>
     </Compile>
@@ -271,7 +277,6 @@
       <DependentUpon>MuseumDB.edmx</DependentUpon>
       <LastGenOutput>MuseumDB.cs</LastGenOutput>
     </Content>
-    <Content Include="Resourses\hp.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\MuseumDB.edmx">
@@ -343,6 +348,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resourses\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

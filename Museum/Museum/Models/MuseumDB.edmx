@@ -161,6 +161,10 @@
           <Parameter Name="p_IDCreator" Type="int" Mode="In" />
         </Function>
         <Function Name="GetExhibitsInMuseum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SearchExhibitions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="p_Country" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -439,7 +443,15 @@
           <Parameter Name="p_Exhibition" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetExhibitsByCreator" ReturnType="Collection(MuseumDBModel.GetExhibitsByCreator_Result)">
-            <Parameter Name="p_IDCreator" Mode="In" Type="Int32" />
+          <Parameter Name="p_IDCreator" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FilterExhibitions" ReturnType="Collection(MuseumDBModel.FilterExhibitions_Result)">
+            <Parameter Name="p_Name" Mode="In" Type="String" />
+            <Parameter Name="p_Country" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SearchExhibitions" ReturnType="Collection(MuseumDBModel.SearchExhibitions_Result)">
+            <Parameter Name="p_Name" Mode="In" Type="String" />
+            <Parameter Name="p_Country" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -519,6 +531,25 @@
           <Property Type="String" Name="DateOfCreation" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Style" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="FilterExhibitions_Result">
+          <Property Type="DateTime" Name="DateStart" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateStop" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Place" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PersonInCharge" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SearchExhibitions_Result">
+          <Property Type="Int32" Name="IDExhibition" Nullable="false" />
+          <Property Type="DateTime" Name="DateStart" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateStop" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Place" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PersonInCharge" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -695,6 +726,20 @@
                 <ScalarProperty Name="DateOfCreation" ColumnName="DateOfCreation" />
                 <ScalarProperty Name="Style" ColumnName="Style" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchExhibitions" FunctionName="Хранилище MuseumDBModel.SearchExhibitions">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MuseumDBModel.SearchExhibitions_Result">
+                <ScalarProperty Name="IDExhibition" ColumnName="IDExhibition" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="DateStop" ColumnName="DateStop" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="PersonInCharge" ColumnName="PersonInCharge" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

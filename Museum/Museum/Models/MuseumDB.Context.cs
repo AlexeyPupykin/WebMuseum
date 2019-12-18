@@ -197,5 +197,31 @@ namespace Museum.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetExhibitsByCreator_Result>("GetExhibitsByCreator", p_IDCreatorParameter);
         }
+    
+        public virtual ObjectResult<FilterExhibitions_Result> FilterExhibitions(string p_Name, string p_Country)
+        {
+            var p_NameParameter = p_Name != null ?
+                new ObjectParameter("p_Name", p_Name) :
+                new ObjectParameter("p_Name", typeof(string));
+    
+            var p_CountryParameter = p_Country != null ?
+                new ObjectParameter("p_Country", p_Country) :
+                new ObjectParameter("p_Country", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FilterExhibitions_Result>("FilterExhibitions", p_NameParameter, p_CountryParameter);
+        }
+    
+        public virtual ObjectResult<SearchExhibitions_Result> SearchExhibitions(string p_Name, string p_Country)
+        {
+            var p_NameParameter = p_Name != null ?
+                new ObjectParameter("p_Name", p_Name) :
+                new ObjectParameter("p_Name", typeof(string));
+    
+            var p_CountryParameter = p_Country != null ?
+                new ObjectParameter("p_Country", p_Country) :
+                new ObjectParameter("p_Country", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchExhibitions_Result>("SearchExhibitions", p_NameParameter, p_CountryParameter);
+        }
     }
 }

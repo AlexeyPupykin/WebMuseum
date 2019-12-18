@@ -28,7 +28,7 @@ namespace Museum.Controllers
             return View(view);
         }
 
-        public ActionResult AddExhibitionView(string name, DateTime begtime, DateTime endtime, 
+        public ActionResult AddExhibition(string name, DateTime begtime, DateTime endtime, 
             string country, string city, string place, string person)
         {
             var prmname = new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.NVarChar);
@@ -133,6 +133,36 @@ namespace Museum.Controllers
         public ActionResult ExhibitionsView()
         {
             return View(exhibitions);
+        }
+
+        public ActionResult SearchExhibition(string name, string country)
+        {
+            List<Exhibition> result = null;
+
+            var prmname = new System.Data.SqlClient.SqlParameter("@p_Name", System.Data.SqlDbType.NVarChar);
+            prmname.Value = name;
+
+            var prmcountry = new System.Data.SqlClient.SqlParameter("@p_Country", System.Data.SqlDbType.NVarChar);
+            prmcountry.Value = country;
+
+            var temp = db.Database.SqlQuery<SearchExhibitions_Result>("SearchExhibitions @p_Name, @p_Country", prmname, prmcountry).ToList();
+
+            foreach(var i in temp)
+            {
+                Exhibition e = null;
+                e.IDExhibition = i.IDExhibition;
+                e.DateStart = i.DateStart;
+                e.DateStop = i.DateStop;
+                e.Name = i.Name;
+                e.Country = i.Country;
+                e.City = i.City;
+                e.Place = i.Place;
+                e.PersonInCharge = i.PersonInCharge;
+
+                result.Add(e);
+            }
+
+            return View("ExhibitionsView", result);
         }
 
         private List<GetCurExhibition_Result> GetCurrentExhibitionView(int Exhibition)
